@@ -53,7 +53,7 @@ const currentPath = Astro.url.pathname;
           Aposentadoria
         </a>
 
-        {/* Dropdown Outras Calculadoras */}
+        {/* Dropdown Outras Calculadoras com Animação Suave */}
         <div class="relative group">
           <button 
             type="button"
@@ -65,39 +65,42 @@ const currentPath = Astro.url.pathname;
             }`}
           >
             <span>Mais Ferramentas</span>
-            <svg class="w-3.5 h-3.5 text-[var(--ink-mute)] group-hover:text-[var(--ink-primary)] transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5 text-[var(--ink-mute)] group-hover:text-[var(--ink-primary)] transition-transform duration-300 ease-out group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
 
-          <div class="absolute left-0 top-full mt-1 w-56 p-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
-            <a 
-              href="/calculadora-idade-cachorro" 
-              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
-            >
-              <span class="text-base">🐶</span>
-              <div class="flex flex-col">
-                <span class="font-semibold text-[var(--ink-primary)]">Idade Canina</span>
-                <span class="text-[10px] text-[var(--ink-mute)]">Anos de cachorro em humanos</span>
-              </div>
-            </a>
-            <a 
-              href="/calculadora-idade-concursos" 
-              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
-            >
-              <span class="text-base">📋</span>
-              <div class="flex flex-col">
-                <span class="font-semibold text-[var(--ink-primary)]">Concursos & Editais</span>
-                <span class="text-[10px] text-[var(--ink-mute)]">Data de corte e limite de idade</span>
-              </div>
-            </a>
+          {/* Wrapper com padding superior que atua como hover bridge e transição fluida */}
+          <div class="absolute left-0 top-full pt-1.5 opacity-0 invisible scale-95 -translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:scale-100 group-hover:translate-y-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover:pointer-events-auto">
+            <div class="w-56 p-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-xl">
+              <a 
+                href="/calculadora-idade-cachorro" 
+                class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
+              >
+                <span class="text-base">🐶</span>
+                <div class="flex flex-col">
+                  <span class="font-semibold text-[var(--ink-primary)]">Idade Canina</span>
+                  <span class="text-[10px] text-[var(--ink-mute)]">Anos de cachorro em humanos</span>
+                </div>
+              </a>
+              <a 
+                href="/calculadora-idade-concursos" 
+                class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
+              >
+                <span class="text-base">📋</span>
+                <div class="flex flex-col">
+                  <span class="font-semibold text-[var(--ink-primary)]">Concursos & Editais</span>
+                  <span class="text-[10px] text-[var(--ink-mute)]">Data de corte e limite de idade</span>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
 
         {/* Separador Vertical */}
         <div class="h-4 w-px bg-[var(--hairline-strong)] mx-1 shrink-0 opacity-60"></div>
 
-        {/* Dropdown Páginas Institucionais */}
+        {/* Dropdown Páginas Institucionais com Animação Suave */}
         <div class="relative group">
           <button 
             type="button"
@@ -111,40 +114,42 @@ const currentPath = Astro.url.pathname;
             }`}
           >
             <span>Institucional</span>
-            <svg class="w-3.5 h-3.5 text-[var(--ink-mute)] group-hover:text-[var(--ink-primary)] transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5 text-[var(--ink-mute)] group-hover:text-[var(--ink-primary)] transition-transform duration-300 ease-out group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
 
-          <div class="absolute right-0 top-full mt-1 w-48 p-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
-            <a 
-              href="/sobre" 
-              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/sobre' || currentPath === '/sobre/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-[#0070f3]"></span>
-              Sobre Nós
-            </a>
-            <a 
-              href="/contato" 
-              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/contato' || currentPath === '/contato/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
-              Contato
-            </a>
-            <a 
-              href="/politica-de-privacidade" 
-              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/politica-de-privacidade' || currentPath === '/politica-de-privacidade/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"></span>
-              Privacidade (LGPD)
-            </a>
-            <a 
-              href="/termos-de-uso" 
-              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/termos-de-uso' || currentPath === '/termos-de-uso/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-[#6366f1]"></span>
-              Termos de Uso
-            </a>
+          <div class="absolute right-0 top-full pt-1.5 opacity-0 invisible scale-95 -translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:scale-100 group-hover:translate-y-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover:pointer-events-auto">
+            <div class="w-48 p-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-xl">
+              <a 
+                href="/sobre" 
+                class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/sobre' || currentPath === '/sobre/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-[#0070f3]"></span>
+                Sobre Nós
+              </a>
+              <a 
+                href="/contato" 
+                class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/contato' || currentPath === '/contato/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Contato
+              </a>
+              <a 
+                href="/politica-de-privacidade" 
+                class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/politica-de-privacidade' || currentPath === '/politica-de-privacidade/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"></span>
+                Privacidade (LGPD)
+              </a>
+              <a 
+                href="/termos-de-uso" 
+                class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/termos-de-uso' || currentPath === '/termos-de-uso/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-[#6366f1]"></span>
+                Termos de Uso
+              </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -165,46 +170,56 @@ const currentPath = Astro.url.pathname;
           </svg>
         </button>
 
-        {/* Menu Mobile Hamburger */}
+        {/* Menu Mobile Hamburger Animado para Cruz (X) */}
         <button
           id="mobile-menu-btn"
           type="button"
-          aria-label="Menu principal"
-          class="lg:hidden p-2 rounded-xl text-[var(--ink-mute)] hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)] border border-[var(--hairline)] transition flex items-center justify-center cursor-pointer"
+          aria-label="Abrir ou fechar menu principal"
+          aria-expanded="false"
+          class="lg:hidden relative w-10 h-10 rounded-xl text-[var(--ink-mute)] hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)] border border-[var(--hairline)] transition-colors flex items-center justify-center cursor-pointer select-none"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+          <div class="w-4.5 h-3.5 relative flex flex-col justify-between items-center pointer-events-none">
+            <span id="h-bar-1" class="w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center"></span>
+            <span id="h-bar-2" class="w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center"></span>
+            <span id="h-bar-3" class="w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center"></span>
+          </div>
         </button>
       </div>
     </div>
   </div>
 
-  {/* Gaveta Mobile */}
-  <div id="mobile-menu-drawer" class="hidden lg:hidden border-t border-[var(--hairline)] bg-[var(--canvas-card)] px-4 py-4 space-y-1.5 shadow-lg animate-fadeIn">
-    <a href="/" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
-      🎂 Início (Calculadora Principal)
-    </a>
-    <a href="/calculadora-idade-gestacional" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-gestacional' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
-      👶 Idade Gestacional & Bebê
-    </a>
-    <a href="/calculadora-idade-entre-datas" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-entre-datas' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
-      ⏳ Idade Entre Datas
-    </a>
-    <a href="/calculadora-idade-aposentadoria" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-aposentadoria' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
-      🏖️ Aposentadoria (INSS)
-    </a>
-    <a href="/calculadora-idade-cachorro" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-cachorro' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
-      🐶 Idade Canina em Anos Humanos
-    </a>
-    <a href="/calculadora-idade-concursos" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-concursos' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
-      📋 Concursos Públicos & Editais
-    </a>
-    <div class="border-t border-[var(--hairline)] pt-3 mt-2 grid grid-cols-2 gap-2 text-xs">
-      <a href="/sobre" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Sobre Nós</a>
-      <a href="/contato" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Contato</a>
-      <a href="/politica-de-privacidade" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Privacidade</a>
-      <a href="/termos-de-uso" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Termos de Uso</a>
+  {/* Gaveta Mobile com Animação Suave por CSS Grid Transition */}
+  <div 
+    id="mobile-menu-drawer" 
+    class="lg:hidden border-t border-[var(--hairline)] bg-[var(--canvas-card)] grid grid-rows-[0fr] opacity-0 transition-all duration-300 ease-in-out"
+  >
+    <div class="overflow-hidden">
+      <div class="px-4 py-4 space-y-1.5 shadow-lg">
+        <a href="/" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+          🎂 Início (Calculadora Principal)
+        </a>
+        <a href="/calculadora-idade-gestacional" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-gestacional' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+          👶 Idade Gestacional & Bebê
+        </a>
+        <a href="/calculadora-idade-entre-datas" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-entre-datas' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+          ⏳ Idade Entre Datas
+        </a>
+        <a href="/calculadora-idade-aposentadoria" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-aposentadoria' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+          🏖️ Aposentadoria (INSS)
+        </a>
+        <a href="/calculadora-idade-cachorro" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-cachorro' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+          🐶 Idade Canina em Anos Humanos
+        </a>
+        <a href="/calculadora-idade-concursos" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-concursos' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+          📋 Concursos Públicos & Editais
+        </a>
+        <div class="border-t border-[var(--hairline)] pt-3 mt-2 grid grid-cols-2 gap-2 text-xs">
+          <a href="/sobre" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Sobre Nós</a>
+          <a href="/contato" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Contato</a>
+          <a href="/politica-de-privacidade" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Privacidade</a>
+          <a href="/termos-de-uso" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Termos de Uso</a>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -225,12 +240,39 @@ const currentPath = Astro.url.pathname;
     });
   }
 
-  // Alternância Menu Mobile
+  // Alternância Menu Mobile com Transição Animada do Hambúrguer para X (Cruz)
   const mobileBtn = document.getElementById('mobile-menu-btn');
   const mobileDrawer = document.getElementById('mobile-menu-drawer');
-  if (mobileBtn && mobileDrawer) {
+  const bar1 = document.getElementById('h-bar-1');
+  const bar2 = document.getElementById('h-bar-2');
+  const bar3 = document.getElementById('h-bar-3');
+
+  let isMenuOpen = false;
+
+  if (mobileBtn && mobileDrawer && bar1 && bar2 && bar3) {
     mobileBtn.addEventListener('click', () => {
-      mobileDrawer.classList.toggle('hidden');
+      isMenuOpen = !isMenuOpen;
+      mobileBtn.setAttribute('aria-expanded', isMenuOpen ? 'true' : 'false');
+
+      if (isMenuOpen) {
+        // Abrir gaveta suavemente
+        mobileDrawer.classList.remove('grid-rows-[0fr]', 'opacity-0');
+        mobileDrawer.classList.add('grid-rows-[1fr]', 'opacity-100');
+
+        // Transformar Hambúrguer em X (Cruz)
+        bar1.classList.add('translate-y-[6px]', 'rotate-45');
+        bar2.classList.add('opacity-0', 'scale-x-0');
+        bar3.classList.add('-translate-y-[6px]', '-rotate-45');
+      } else {
+        // Fechar gaveta suavemente
+        mobileDrawer.classList.remove('grid-rows-[1fr]', 'opacity-100');
+        mobileDrawer.classList.add('grid-rows-[0fr]', 'opacity-0');
+
+        // Restaurar Hambúrguer
+        bar1.classList.remove('translate-y-[6px]', 'rotate-45');
+        bar2.classList.remove('opacity-0', 'scale-x-0');
+        bar3.classList.remove('-translate-y-[6px]', '-rotate-45');
+      }
     });
   }
 </script>
