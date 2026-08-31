@@ -1,54 +1,53 @@
 ---
 import Header from '../components/Header.astro';
-import { UPSCMode } from '../components/modes/UPSCMode';
-import { RelaxationTable } from '../components/RelaxationTable';
+import { BabyAgeMode } from '../components/modes/BabyAgeMode';
 import SEOContent from '../components/SEOContent.astro';
 import SEOSchema from '../components/SEOSchema.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const title = "UPSC Age Calculator 2026 — Exact 1st August Cutoff & Category Relaxations";
-const description = "Official UPSC Age Calculator of India on AllAgeCalculators. Check your exact eligibility and age as on 1st August cutoff date for UPSC CSE 2026, 2027 & 2028 with GEN, EWS, OBC, SC, ST, PwBD & Ex-Servicemen attempt counters.";
-const canonicalUrl = "https://allagecalculators.com/upsc-age-calculator";
+const title = "Calculadora de Idade Gestacional, Idade do Bebê e Idade Corrigida";
+const description = "Calculadora de idade gestacional e idade do bebê em semanas, meses e dias. Inclui cálculo de idade corrigida para bebês prematuros e acompanhamento de mesversário.";
+const canonicalUrl = "https://calculadoradeidade.com/calculadora-idade-gestacional";
 ---
 
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- Dedicated UPSC Meta Tags -->
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta 
       name="keywords" 
-      content="age calculator of upsc, upsc age limit, age calculator of india, age calculator, age calculator by date of birth, online age calculator, free online age calculator" 
+      content="calculadora de idade gestacional, calculadora de idade corrigida, idade do bebe, calculadora idade bebe, semanas de gestação, idade corrigida prematuro, calcular semanas de vida do bebe" 
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
 
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="AllAgeCalculators (allagecalculators.com)" />
+    <meta property="og:site_name" content="Calculadora de Idade" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://allagecalculators.com/og-image.png" />
-
-    <!-- Twitter Card -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://allagecalculators.com/og-image.png" />
+    <meta property="og:image" content="https://calculadoradeidade.com/og-image.png" />
 
     <!-- JSON-LD Structured Data -->
-    <SEOSchema page="upsc" title={title} description={description} canonicalUrl={canonicalUrl} />
+    <SEOSchema page="baby" title={title} description={description} canonicalUrl={canonicalUrl} />
 
-    <!-- Theme Script -->
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('theme');
@@ -70,14 +69,11 @@ const canonicalUrl = "https://allagecalculators.com/upsc-age-calculator";
       <Header />
 
       <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16 space-y-6 sm:space-y-8">
-        <!-- Direct UPSC Calculator Component -->
-        <section id="upsc-tool" class="space-y-6">
-          <UPSCMode client:load />
-          <RelaxationTable client:load />
+        <section id="calculator">
+          <BabyAgeMode client:load />
         </section>
 
-        <!-- SEO Content & FAQ -->
-        <SEOContent page="upsc" />
+        <SEOContent page="baby" />
       </main>
     </div>
 

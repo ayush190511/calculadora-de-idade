@@ -1,0 +1,137 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SEOSchema from '../components/SEOSchema.astro';
+import '../styles/global.css';
+
+const title = "Sobre Nós — Calculadora de Idade (calculadoradeidade.com)";
+const description = "Conheça a Calculadora de Idade (calculadoradeidade.com). Nossa missão é fornecer ferramentas gratuitas e ultra precisas de cálculo cronológico, gestacional e de datas.";
+const canonicalUrl = "https://calculadoradeidade.com/sobre";
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Calculadora de Idade" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://calculadoradeidade.com/og-image.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <SEOSchema page="about" title={title} description={description} canonicalUrl={canonicalUrl} />
+
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else if (saved === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+          }
+        }
+      })();
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-[var(--canvas)] text-[var(--ink-primary)] selection:bg-[var(--ink-primary)] selection:text-[var(--canvas-card)] flex flex-col justify-between hero-mesh-bg transition-colors">
+    <div>
+      <Header />
+
+      <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-16 space-y-8">
+        <!-- Cabeçalho -->
+        <div class="text-center space-y-3">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--canvas-inset)] border border-[var(--hairline)] text-xs font-semibold text-[#0070f3]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+            <span>Nossa Missão e Compromisso</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-[var(--ink-primary)]">
+            Sobre a Calculadora de Idade
+          </h1>
+          <p class="text-xs sm:text-sm text-[var(--ink-body)] max-w-xl mx-auto leading-relaxed">
+            Desenvolvida para oferecer a experiência mais rápida, precisa, privativa e agradável para cálculo de tempo e idade na internet.
+          </p>
+        </div>
+
+        <!-- Pilares -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-5 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-[#0070f3]/10 text-[#0070f3] flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-sm font-bold text-[var(--ink-primary)]">Precisão Matemática Absoluta</h3>
+            <p class="text-xs text-[var(--ink-body)] leading-relaxed">
+              Nossos algoritmos processam rigorosamente anos bissextos, meses de durações distintas e fusos horários locais com contagem ao vivo segundo a segundo.
+            </p>
+          </div>
+
+          <div class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-5 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-sm font-bold text-[var(--ink-primary)]">100% Privativo (Client-Side)</h3>
+            <p class="text-xs text-[var(--ink-body)] leading-relaxed">
+              Os seus dados e datas de nascimento nunca saem do seu computador ou celular. Todo o cálculo é feito no seu próprio navegador via JavaScript.
+            </p>
+          </div>
+
+          <div class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-5 space-y-2.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+            </div>
+            <h3 class="text-sm font-bold text-[var(--ink-primary)]">Feito para a Lusofonia</h3>
+            <p class="text-xs text-[var(--ink-body)] leading-relaxed">
+              Projetado especificamente para usuários do Brasil, Portugal, Angola, Moçambique e demais países de língua portuguesa no formato nativo DD/MM/AAAA.
+            </p>
+          </div>
+        </div>
+
+        <!-- Artigo Explicativo -->
+        <article class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-6 sm:p-8 space-y-4 text-xs sm:text-sm text-[var(--ink-body)] leading-relaxed">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)]">
+            Por que criamos a Calculadora de Idade?
+          </h2>
+          <p>
+            Muitas calculadoras disponíveis na internet são lentas, cheias de anúncios invasivos ou não tratam corretamente os dias dos meses e anos bissextos. Além disso, raramente oferecem ferramentas especializadas para mães acompanharem a <strong>idade corrigida do bebê</strong>, estudantes simularem a <strong>data de corte de concursos</strong> ou profissionais planejarem a <strong>aposentadoria</strong>.
+          </p>
+          <p>
+            Criamos o portal <strong>calculadoradeidade.com</strong> para reunir em um só lugar as melhores calculadoras cronológicas, garantindo interface moderna com suporte a tema escuro, modo offline e funcionamento instantâneo.
+          </p>
+        </article>
+      </main>
+    </div>
+
+    <Footer />
+  </body>
+</html>

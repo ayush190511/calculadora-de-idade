@@ -1,0 +1,108 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SEOSchema from '../components/SEOSchema.astro';
+import '../styles/global.css';
+
+const title = "Termos de Uso — Calculadora de Idade (calculadoradeidade.com)";
+const description = "Termos e Condições de Uso da Calculadora de Idade (calculadoradeidade.com). Leia as condições de serviço, avisos de precisão e diretrizes de uso.";
+const canonicalUrl = "https://calculadoradeidade.com/termos-de-uso";
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Calculadora de Idade" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://calculadoradeidade.com/og-image.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <SEOSchema page="terms" title={title} description={description} canonicalUrl={canonicalUrl} />
+
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else if (saved === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+          }
+        }
+      })();
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-[var(--canvas)] text-[var(--ink-primary)] selection:bg-[var(--ink-primary)] selection:text-[var(--canvas-card)] flex flex-col justify-between hero-mesh-bg transition-colors">
+    <div>
+      <Header />
+
+      <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-16 space-y-8">
+        <div class="border-b border-[var(--hairline)] pb-6 space-y-2">
+          <span class="text-xs font-mono font-bold tracking-wider text-[#0070f3] uppercase">Diretrizes Legais</span>
+          <h1 class="text-2xl sm:text-3xl font-black text-[var(--ink-primary)]">
+            Termos de Uso
+          </h1>
+          <p class="text-xs text-[var(--ink-mute)]">Última atualização: 2026</p>
+        </div>
+
+        <article class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-6 sm:p-8 space-y-6 text-xs sm:text-sm text-[var(--ink-body)] leading-relaxed">
+          <section class="space-y-2">
+            <h2 class="text-base font-bold text-[var(--ink-primary)]">1. Aceitação dos Termos</h2>
+            <p>
+              Ao acessar e utilizar a Calculadora de Idade (<strong>calculadoradeidade.com</strong>), você concorda com estes termos de uso. O serviço é disponibilizado de forma gratuita para uso pessoal e profissional.
+            </p>
+          </section>
+
+          <section class="space-y-2">
+            <h2 class="text-base font-bold text-[var(--ink-primary)]">2. Finalidade Informativa e Isenção de Responsabilidade</h2>
+            <p>
+              Nossas calculadoras realizam cálculos matemáticos com base em padrões de calendário gregoriano e diretrizes gerais. Embora apliquemos o mais alto rigor técnico, as estimativas não substituem consultas formais a órgãos oficiais (como INSS, bancas de concurso ou laudos médicos pediátricos e veterinários).
+            </p>
+          </section>
+
+          <section class="space-y-2">
+            <h2 class="text-base font-bold text-[var(--ink-primary)]">3. Propriedade Intelectual</h2>
+            <p>
+              Todo o código-fonte, layout visual, logotipos e conteúdos textuais deste site são protegidos pelas leis de propriedade intelectual. É proibida a reprodução não autorizada do conteúdo com fins de clonagem comercial.
+            </p>
+          </section>
+
+          <section class="space-y-2">
+            <h2 class="text-base font-bold text-[var(--ink-primary)]">4. Contato</h2>
+            <p>
+              Em caso de dúvidas sobre estes termos, entre em contato pela página de <a href="/contato" class="text-[#0070f3] underline">Contato</a>.
+            </p>
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <Footer />
+  </body>
+</html>

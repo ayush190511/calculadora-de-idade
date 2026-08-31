@@ -27,7 +27,7 @@ function getMaxDaysInMonth(month: number, year: number): number {
 }
 
 /**
- * Converts ISO date (YYYY-MM-DD) to DD/MM/YYYY
+ * Converte data ISO (YYYY-MM-DD) para DD/MM/AAAA
  */
 function isoToDisplay(isoStr: string): string {
   if (!isoStr || !isoStr.includes('-')) return '';
@@ -42,7 +42,7 @@ function isoToDisplay(isoStr: string): string {
 }
 
 /**
- * Smart date formatting and strict validation on input
+ * Validação inteligente e máscara automática no formato DD/MM/AAAA
  */
 function sanitizeAndFormatDateInput(
   rawVal: string,
@@ -50,7 +50,7 @@ function sanitizeAndFormatDateInput(
   maxIso?: string,
   minIso?: string
 ): { formatted: string; isoDate: string | null; error: string | null } {
-  // Handle backspace / deletion
+  // Lida com backspace / exclusão
   if (rawVal.length < prevVal.length) {
     if (prevVal.endsWith('/') && !rawVal.endsWith('/')) {
       return { formatted: rawVal.slice(0, -1), isoDate: null, error: null };
@@ -58,17 +58,16 @@ function sanitizeAndFormatDateInput(
     return { formatted: rawVal, isoDate: null, error: null };
   }
 
-  // Extract digits only (max 8)
+  // Apenas dígitos (máx 8)
   const digits = rawVal.replace(/\D/g, '').slice(0, 8);
   if (!digits) {
     return { formatted: '', isoDate: null, error: null };
   }
 
-  // 1. Day validation (1-2 digits)
+  // 1. Validação do Dia (1-2 dígitos)
   let dayPart = '';
   if (digits.length === 1) {
     const d1 = parseInt(digits[0], 10);
-    // If first digit is 4-9, auto-pad with 0 -> "04/", "05/", etc.
     if (d1 >= 4) {
       dayPart = `0${d1}/`;
       return { formatted: dayPart, isoDate: null, error: null };
@@ -85,13 +84,12 @@ function sanitizeAndFormatDateInput(
     return { formatted: `${dayPart}/`, isoDate: null, error: null };
   }
 
-  // 2. Month validation (digits 3-4)
+  // 2. Validação do Mês (dígitos 3-4)
   const remainingAfterDay = digits.slice(2);
   let monthPart = '';
 
   if (remainingAfterDay.length === 1) {
     const m1 = parseInt(remainingAfterDay[0], 10);
-    // If first digit of month is 2-9, auto-pad with 0 -> "02/", "03/", etc.
     if (m1 >= 2) {
       monthPart = `0${m1}/`;
       return { formatted: `${dayPart}/${monthPart}`, isoDate: null, error: null };
@@ -104,7 +102,6 @@ function sanitizeAndFormatDateInput(
   if (mNum > 12) mNum = 12;
   monthPart = String(mNum).padStart(2, '0');
 
-  // Clamp day against 30-day month limits
   const maxDaysThisMonth = getMaxDaysInMonth(mNum, 2024);
   if (dNum > maxDaysThisMonth) {
     dNum = maxDaysThisMonth;
@@ -115,14 +112,13 @@ function sanitizeAndFormatDateInput(
     return { formatted: `${dayPart}/${monthPart}/`, isoDate: null, error: null };
   }
 
-  // 3. Year validation (digits 5-8)
+  // 3. Validação do Ano (dígitos 5-8)
   const yearDigits = remainingAfterDay.slice(2, 6);
   const formatted = `${dayPart}/${monthPart}/${yearDigits}`;
 
   if (yearDigits.length === 4) {
     const yNum = parseInt(yearDigits, 10);
     if (yNum >= 1900 && yNum <= 2100) {
-      // Re-verify leap year for February
       const maxDaysForYear = getMaxDaysInMonth(mNum, yNum);
       if (dNum > maxDaysForYear) {
         dNum = maxDaysForYear;
@@ -135,7 +131,7 @@ function sanitizeAndFormatDateInput(
         return {
           formatted: `${dayPart}/${monthPart}/${yearDigits}`,
           isoDate: null,
-          error: `Date cannot be in the future (after ${isoToDisplay(maxIso)})`,
+          error: `A data não pode estar no futuro (depois de ${isoToDisplay(maxIso)})`,
         };
       }
 
@@ -143,7 +139,7 @@ function sanitizeAndFormatDateInput(
         return {
           formatted: `${dayPart}/${monthPart}/${yearDigits}`,
           isoDate: null,
-          error: `Date cannot be before ${isoToDisplay(minIso)}`,
+          error: `A data não pode ser anterior a ${isoToDisplay(minIso)}`,
         };
       }
 
@@ -172,7 +168,6 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
   const [displayText, setDisplayText] = useState<string>(() => isoToDisplay(value));
   const [inputError, setInputError] = useState<string | null>(null);
 
-  // Sync internal text state when external `value` prop changes
   useEffect(() => {
     if (value) {
       const formatted = isoToDisplay(value);
@@ -203,7 +198,6 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
   };
 
   const handleBlur = () => {
-    // If left incomplete on blur, revert to current valid value or clear
     if (displayText.length > 0 && displayText.length < 10) {
       if (value) {
         setDisplayText(isoToDisplay(value));
@@ -223,7 +217,7 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
           hiddenDateInputRef.current.showPicker();
           return;
         } catch {
-          // Fallback if showPicker fails
+          // Fallback
         }
       }
       hiddenDateInputRef.current.focus();
@@ -238,10 +232,10 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
         <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
           {label} {required && <span className="text-[#ee0000]">*</span>}
         </label>
-        <span className="text-[10px] sm:text-xs font-mono text-[var(--ink-mute)]">DD/MM/YYYY</span>
+        <span className="text-[10px] sm:text-xs font-mono text-[var(--ink-mute)]">DD/MM/AAAA</span>
       </div>
 
-      {/* Date Entry Box with Integrated Calendar Picker */}
+      {/* Date Entry Box */}
       <div className="relative flex items-center">
         <input
           type="text"
@@ -251,49 +245,52 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
           value={displayText}
           onChange={handleInputChange}
           onBlur={handleBlur}
-          placeholder="DD/MM/YYYY"
-          className="w-full h-10 sm:h-11 md:h-11 pl-3 sm:pl-3.5 md:pl-4 pr-24 sm:pr-28 md:pr-30 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-lg sm:rounded-xl text-sm sm:text-base md:text-base text-[var(--ink-primary)] font-mono-num font-semibold tracking-normal sm:tracking-wide focus:outline-none focus:ring-2 focus:ring-[#0070f3]/40 focus:border-[#0070f3] shadow-2xs transition-all placeholder:text-xs sm:placeholder:text-sm placeholder:tracking-normal placeholder:text-[var(--ink-mute)]/45 placeholder:font-normal"
-          aria-label={`${label} in DD/MM/YYYY format`}
+          placeholder="DD/MM/AAAA (ex: 15/08/1998)"
+          aria-label={label}
+          className={`w-full h-10 sm:h-11 pl-3.5 pr-11 bg-[var(--canvas-card)] border rounded-xl font-mono text-sm sm:text-base font-bold text-[var(--ink-primary)] placeholder:text-[var(--ink-mute)]/50 focus:outline-none focus:ring-2 transition ${
+            inputError
+              ? 'border-red-500/80 focus:ring-red-500/30'
+              : 'border-[var(--hairline)] focus:ring-[#0070f3]/40 focus:border-[#0070f3]'
+          }`}
         />
 
-        {/* Integrated Calendar Trigger Button */}
-        <div className="absolute right-1 sm:right-1.5 md:right-1.5 top-1 bottom-1 flex items-center">
-          <button
-            type="button"
-            onClick={handleOpenCalendar}
-            className="h-8 sm:h-8.5 md:h-8.5 px-2.5 sm:px-3 bg-[var(--canvas-inset)] border border-[var(--hairline)] hover:border-[#0070f3] hover:bg-[var(--canvas-card)] text-[var(--ink-primary)] rounded-md sm:rounded-lg flex items-center justify-center gap-1.5 sm:gap-2 transition-all select-none shadow-2xs cursor-pointer active:scale-95"
-            title="Open calendar picker"
-            aria-label="Open calendar picker"
-          >
-            <CalendarIcon className="w-3.5 h-3.5 text-[#0070f3]" />
-            <span className="text-xs font-medium">Calendar</span>
-          </button>
+        {/* Integrated Native Calendar Picker Trigger */}
+        <button
+          type="button"
+          onClick={handleOpenCalendar}
+          title="Abrir seletor de calendário"
+          className="absolute right-1.5 p-2 text-[var(--ink-mute)] hover:text-[#0070f3] hover:bg-[var(--canvas-inset)] rounded-lg transition-colors cursor-pointer"
+        >
+          <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
 
-          {/* Native HTML5 date input off-screen for picker invocation */}
-          <input
-            ref={hiddenDateInputRef}
-            type="date"
-            value={value || ''}
-            max={max}
-            min={min}
-            onChange={(e) => {
-              const newVal = e.target.value;
-              if (newVal) {
-                onChange(newVal);
-                setDisplayText(isoToDisplay(newVal));
-                setInputError(null);
-              }
-            }}
-            tabIndex={-1}
-            className="sr-only opacity-0 pointer-events-none absolute -z-10"
-            aria-hidden="true"
-          />
-        </div>
+        {/* Hidden Native Date Input */}
+        <input
+          ref={hiddenDateInputRef}
+          type="date"
+          tabIndex={-1}
+          aria-hidden="true"
+          value={value || ''}
+          max={max}
+          min={min}
+          onChange={(e) => {
+            const chosen = e.target.value;
+            if (chosen) {
+              onChange(chosen);
+              setDisplayText(isoToDisplay(chosen));
+              setInputError(null);
+            }
+          }}
+          className="sr-only absolute opacity-0 pointer-events-none w-0 h-0"
+        />
       </div>
 
-      {(inputError || helpText) && (
-        <p className="text-xs text-amber-500 font-medium pt-0.5">{inputError || helpText}</p>
-      )}
+      {/* Error Feedback */}
+      {inputError ? (
+        <p className="text-[11px] font-medium text-red-500 animate-fadeIn">{inputError}</p>
+      ) : helpText ? (
+        <p className="text-[11px] text-[var(--ink-mute)]">{helpText}</p>
+      ) : null}
     </div>
   );
 };

@@ -1,53 +1,53 @@
 ---
 import Header from '../components/Header.astro';
-import { BabyAgeMode } from '../components/modes/BabyAgeMode';
+import { RetirementMode } from '../components/modes/RetirementMode';
 import SEOContent from '../components/SEOContent.astro';
 import SEOSchema from '../components/SEOSchema.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const title = "Baby Age Calculator — Calculate Age in Weeks, Months & Days";
-const description = "Free Baby Age Calculator on AllAgeCalculators. Calculate exact baby age in weeks, months & days. Includes premature gestational corrected age adjustments and school admission milestone tracking.";
-const canonicalUrl = "https://allagecalculators.com/baby-age-calculator";
+const title = "Calculadora de Idade para Aposentadoria — Tempo Restante e INSS";
+const description = "Calculadora de idade para aposentadoria online grátis. Calcule quanto tempo falta para se aposentar em anos, meses e dias com base na sua data de nascimento e regras da previdência.";
+const canonicalUrl = "https://calculadoradeidade.com/calculadora-idade-aposentadoria";
 ---
 
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- Dedicated Baby Age Meta Tags -->
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta 
       name="keywords" 
-      content="age calculator of baby, age calculator of child, child age calculator, child age, age calculator, age calculator by date of birth, online age calculator, free online age calculator" 
+      content="calculadora de idade para aposentadoria, calculadora aposentadoria inss, calcular tempo para aposentar, idade minima aposentadoria, simulador aposentadoria idade" 
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
 
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="AllAgeCalculators (allagecalculators.com)" />
+    <meta property="og:site_name" content="Calculadora de Idade" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://allagecalculators.com/og-image.png" />
-
-    <!-- Twitter Card -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://allagecalculators.com/og-image.png" />
+    <meta property="og:image" content="https://calculadoradeidade.com/og-image.png" />
 
     <!-- JSON-LD Structured Data -->
-    <SEOSchema page="baby" title={title} description={description} canonicalUrl={canonicalUrl} />
+    <SEOSchema page="retirement" title={title} description={description} canonicalUrl={canonicalUrl} />
 
-    <!-- Theme Script -->
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('theme');
@@ -69,13 +69,11 @@ const canonicalUrl = "https://allagecalculators.com/baby-age-calculator";
       <Header />
 
       <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16 space-y-6 sm:space-y-8">
-        <!-- Direct Baby Age Component -->
-        <section id="baby-tool">
-          <BabyAgeMode client:load />
+        <section id="calculator">
+          <RetirementMode client:load />
         </section>
 
-        <!-- SEO Content & FAQ -->
-        <SEOContent page="baby" />
+        <SEOContent page="retirement" />
       </main>
     </div>
 

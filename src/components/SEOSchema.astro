@@ -2,7 +2,7 @@
 import GoogleAnalytics from './GoogleAnalytics.astro';
 
 export interface Props {
-  page: 'home' | 'upsc' | 'retirement' | 'dog' | 'baby' | 'datediff' | 'about' | 'contact' | 'privacy' | 'terms';
+  page: 'home' | 'concursos' | 'retirement' | 'dog' | 'baby' | 'datediff' | 'about' | 'contact' | 'privacy' | 'terms';
   title: string;
   description: string;
   canonicalUrl: string;
@@ -10,51 +10,53 @@ export interface Props {
 
 const { page, title, description, canonicalUrl } = Astro.props;
 
-const isToolPage = ['home', 'upsc', 'retirement', 'dog', 'baby', 'datediff'].includes(page);
+const isToolPage = ['home', 'concursos', 'retirement', 'dog', 'baby', 'datediff'].includes(page);
 
-// 1. WebApplication / SoftwareApplication Schema for Calculators
+// 1. WebApplication / SoftwareApplication Schema para Calculadoras
 const softwareAppSchema = isToolPage ? {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": title,
   "operatingSystem": "All",
   "applicationCategory": "UtilitiesApplication",
+  "inLanguage": "pt",
   "offers": {
     "@type": "Offer",
     "price": "0",
-    "priceCurrency": "USD"
+    "priceCurrency": "BRL"
   },
   "description": description,
   "url": canonicalUrl,
-  "browserRequirements": "Requires JavaScript. Requires HTML5."
+  "browserRequirements": "Requer JavaScript e HTML5."
 } : null;
 
-// 2. Organization & WebSite Schema (Homepage)
+// 2. Organization & WebSite Schema (Página Inicial)
 const websiteSchema = page === 'home' ? {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "AllAgeCalculators",
-  "alternateName": "Online Age Calculator",
-  "url": "https://allagecalculators.com/",
+  "name": "Calculadora de Idade",
+  "alternateName": "Calculadora de Idade Online",
+  "inLanguage": "pt",
+  "url": "https://calculadoradeidade.com/",
   "publisher": {
     "@type": "Organization",
-    "name": "AllAgeCalculators",
-    "url": "https://allagecalculators.com/",
-    "logo": "https://allagecalculators.com/Logo.png"
+    "name": "Calculadora de Idade",
+    "url": "https://calculadoradeidade.com/",
+    "logo": "https://calculadoradeidade.com/Logo.png"
   }
 } : null;
 
-// 3. BreadcrumbList Schema for Inner Pages
+// 3. BreadcrumbList Schema para Páginas Internas
 const breadcrumbNames: Record<string, string> = {
-  upsc: "UPSC Age Calculator",
-  retirement: "Retirement Age Calculator",
-  dog: "Dog Age Calculator",
-  baby: "Baby Age Calculator",
-  datediff: "Date Difference Calculator",
-  about: "About Us",
-  contact: "Contact Us",
-  privacy: "Privacy Policy",
-  terms: "Terms & Conditions"
+  concursos: "Calculadora de Idade para Concursos e Editais",
+  retirement: "Calculadora de Idade para Aposentadoria",
+  dog: "Calculadora de Idade de Cachorro",
+  baby: "Calculadora de Idade Gestacional e Bebê",
+  datediff: "Calculadora de Idade Entre Datas",
+  about: "Sobre Nós",
+  contact: "Contato",
+  privacy: "Política de Privacidade",
+  terms: "Termos de Uso"
 };
 
 const breadcrumbSchema = page !== 'home' && breadcrumbNames[page] ? {
@@ -64,8 +66,8 @@ const breadcrumbSchema = page !== 'home' && breadcrumbNames[page] ? {
     {
       "@type": "ListItem",
       "position": 1,
-      "name": "Home",
-      "item": "https://allagecalculators.com/"
+      "name": "Início",
+      "item": "https://calculadoradeidade.com/"
     },
     {
       "@type": "ListItem",

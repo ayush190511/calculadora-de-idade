@@ -1,0 +1,107 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SEOSchema from '../components/SEOSchema.astro';
+import '../styles/global.css';
+
+const title = "Política de Privacidade — Calculadora de Idade (calculadoradeidade.com)";
+const description = "Política de Privacidade da Calculadora de Idade (calculadoradeidade.com). Saiba como respeitamos sua privacidade com cálculos 100% locais e em conformidade com a LGPD.";
+const canonicalUrl = "https://calculadoradeidade.com/politica-de-privacidade";
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Calculadora de Idade" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://calculadoradeidade.com/og-image.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <SEOSchema page="privacy" title={title} description={description} canonicalUrl={canonicalUrl} />
+
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else if (saved === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+          }
+        }
+      })();
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-[var(--canvas)] text-[var(--ink-primary)] selection:bg-[var(--ink-primary)] selection:text-[var(--canvas-card)] flex flex-col justify-between hero-mesh-bg transition-colors">
+    <div>
+      <Header />
+
+      <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-16 space-y-8">
+        <div class="border-b border-[var(--hairline)] pb-6 space-y-2">
+          <span class="text-xs font-mono font-bold tracking-wider text-[#0070f3] uppercase">Conformidade e Transparência</span>
+          <h1 class="text-2xl sm:text-3xl font-black text-[var(--ink-primary)]">
+            Política de Privacidade
+          </h1>
+          <p class="text-xs text-[var(--ink-mute)]">Última atualização: 2026</p>
+        </div>
+
+        <article class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-6 sm:p-8 space-y-6 text-xs sm:text-sm text-[var(--ink-body)] leading-relaxed">
+          <section class="space-y-2">
+            <h2 class="text-base font-bold text-[var(--ink-primary)]">1. Processamento Local e Não Armazenamento de Datas</h2>
+            <p>
+              A Calculadora de Idade (<strong>calculadoradeidade.com</strong>) opera sob o princípio de Privacidade por Padrão (Privacy by Default). Todas as operações de cálculo de datas e idade são realizadas inteiramente no seu próprio navegador web via JavaScript (client-side). Nós <strong>NÃO</strong> gravamos, armazenamos ou transmitimos as datas de nascimento inseridas nas ferramentas.
+            </p>
+          </section>
+
+          <section class="space-y-2">
+            <h2 class="text-base font-bold text-[var(--ink-primary)]">2. Conformidade com a LGPD e RGPD</h2>
+            <p>
+              Estamos em total conformidade com a Lei Geral de Proteção de Dados do Brasil (Lei nº 13.709/2018 - LGPD) e com o Regulamento Geral sobre a Proteção de Dados (RGPD) da União Europeia.
+            </p>
+          </section>
+
+          <section class="space-y-2">
+            <h2 class="text-base font-bold text-[var(--ink-primary)]">3. Cookies e Ferramentas de Métricas</h2>
+            <p>
+              Podemos utilizar ferramentas de métricas anônimas (como Google Analytics) apenas para compreender o volume de acessos e melhorar o desempenho técnico das ferramentas, sem qualquer associação com a sua identidade ou dados pessoais.
+            </p>
+          </section>
+
+          <section class="space-y-2">
+            <h2 class="text-base font-bold text-[var(--ink-primary)]">4. Contato do Encarregado de Dados</h2>
+            <p>
+              Para quaisquer esclarecimentos adicionais sobre a nossa política de privacidade, utilize a nossa página de <a href="/contato" class="text-[#0070f3] underline">Contato</a>.
+            </p>
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <Footer />
+  </body>
+</html>

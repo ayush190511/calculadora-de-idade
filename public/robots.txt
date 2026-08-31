@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://allagecalculators.com/sitemap.xml
+Sitemap: https://calculadoradeidade.com/sitemap.xml

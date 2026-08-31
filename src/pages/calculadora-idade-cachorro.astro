@@ -6,48 +6,48 @@ import SEOSchema from '../components/SEOSchema.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const title = "Dog Age Calculator — Convert Dog Years to Human Years";
-const description = "Free Dog Age Calculator on AllAgeCalculators. Convert dog age to human years using official AVMA breed size formulas. Includes sleep requirements and life stage care tips.";
-const canonicalUrl = "https://allagecalculators.com/dog-age-calculator";
+const title = "Calculadora de Idade de Cachorro em Anos Humanos por Porte";
+const description = "Calculadora de idade de cachorro em anos humanos. Descubra a idade biológica do seu cão com base no porte (pequeno, médio, grande ou gigante) e padrão veterinário AVMA.";
+const canonicalUrl = "https://calculadoradeidade.com/calculadora-idade-cachorro";
 ---
 
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- Dedicated Dog Age Meta Tags -->
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta 
       name="keywords" 
-      content="dog age calculator, dog age, dog age calculator by breed, dog age in human years, pedigree dog age calculator, dog age calculator months, new dog age calculator, senior dog age, dog age to human age, dog age test, dog age 11" 
+      content="calculadora de idade de cachorro, idade de cachorro em anos humanos, como calcular idade do cachorro, converter idade canina, idade do cao, tabela idade do cachorro" 
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
 
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="AllAgeCalculators (allagecalculators.com)" />
+    <meta property="og:site_name" content="Calculadora de Idade" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://allagecalculators.com/og-image.png" />
-
-    <!-- Twitter Card -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://allagecalculators.com/og-image.png" />
+    <meta property="og:image" content="https://calculadoradeidade.com/og-image.png" />
 
     <!-- JSON-LD Structured Data -->
     <SEOSchema page="dog" title={title} description={description} canonicalUrl={canonicalUrl} />
 
-    <!-- Theme Script -->
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('theme');
@@ -69,12 +69,10 @@ const canonicalUrl = "https://allagecalculators.com/dog-age-calculator";
       <Header />
 
       <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16 space-y-6 sm:space-y-8">
-        <!-- Direct Dog Age Component -->
-        <section id="dog-tool">
+        <section id="calculator">
           <DogAgeMode client:load />
         </section>
 
-        <!-- SEO Content & FAQ -->
         <SEOContent page="dog" />
       </main>
     </div>

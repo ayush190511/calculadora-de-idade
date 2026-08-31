@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://allagecalculators.com/</loc>
+    <loc>https://calculadoradeidade.com/</loc>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://allagecalculators.com/upsc-age-calculator</loc>
+    <loc>https://calculadoradeidade.com/calculadora-idade-gestacional</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://allagecalculators.com/retirement-age-calculator</loc>
+    <loc>https://calculadoradeidade.com/calculadora-idade-entre-datas</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://calculadoradeidade.com/calculadora-idade-aposentadoria</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://allagecalculators.com/dog-age-calculator</loc>
+    <loc>https://calculadoradeidade.com/calculadora-idade-cachorro</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://allagecalculators.com/baby-age-calculator</loc>
+    <loc>https://calculadoradeidade.com/calculadora-idade-concursos</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://allagecalculators.com/date-difference-calculator</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://allagecalculators.com/about</loc>
+    <loc>https://calculadoradeidade.com/sobre</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://allagecalculators.com/contact</loc>
+    <loc>https://calculadoradeidade.com/contato</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://allagecalculators.com/privacy-policy</loc>
+    <loc>https://calculadoradeidade.com/politica-de-privacidade</loc>
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://allagecalculators.com/terms-and-conditions</loc>
+    <loc>https://calculadoradeidade.com/termos-de-uso</loc>
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>

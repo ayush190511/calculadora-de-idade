@@ -5,16 +5,15 @@ export const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    category: 'General Inquiry',
+    category: 'Dúvida Geral',
     subject: '',
     message: '',
-    _website_hp: '', // Honeypot anti-spam field
+    _website_hp: '', // Campo honeypot anti-spam
   });
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Endpoint handling logic
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -23,16 +22,16 @@ export const ContactForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 1. Silent Honeypot Anti-Spam Check: If bot filled the hidden input, pretend success without sending
+    // 1. Verificação Honeypot Anti-Spam: Se um robô preencheu o campo oculto, simula sucesso sem enviar
     if (formData._website_hp) {
-      console.log('Spam bot detected via honeypot.');
+      console.log('Spam bot detectado.');
       setStatus('success');
       return;
     }
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus('error');
-      setErrorMessage('Please fill in your name, email, and message.');
+      setErrorMessage('Por favor, preencha seu nome, e-mail e mensagem.');
       return;
     }
 
@@ -40,7 +39,6 @@ export const ContactForm: React.FC = () => {
     setErrorMessage('');
 
     try {
-      // Check if user stored a custom Google Apps Script Webhook URL in localStorage or fallback
       const storedUrl = typeof window !== 'undefined' ? localStorage.getItem('google_apps_script_url') : null;
       const scriptUrl = storedUrl || 'https://script.google.com/macros/s/AKfycbwB_uAmKMtUFPnr-osaEnqq55AdpOB2eVntEwr1XhSRcK6bhu0fNmmiECR9s2HWaZ2XCA/exec';
 
@@ -49,12 +47,11 @@ export const ContactForm: React.FC = () => {
         name: formData.name.trim(),
         email: formData.email.trim(),
         category: formData.category,
-        subject: formData.subject.trim() || 'No Subject',
+        subject: formData.subject.trim() || 'Sem Assunto',
         message: formData.message.trim(),
       };
 
       if (scriptUrl.includes('placeholder')) {
-        // Simulated instant success for demo if script URL is not deployed yet
         await new Promise((resolve) => setTimeout(resolve, 800));
       } else {
         await fetch(scriptUrl, {
@@ -71,166 +68,164 @@ export const ContactForm: React.FC = () => {
       setFormData({
         name: '',
         email: '',
-        category: 'General Inquiry',
+        category: 'Dúvida Geral',
         subject: '',
         message: '',
         _website_hp: '',
       });
-    } catch (err) {
-      console.error('Submission error:', err);
-      // In case of opaque fetch error with no-cors, show success state as request went through
-      setStatus('success');
+    } catch (err: any) {
+      console.error('Erro ao enviar contato:', err);
+      setStatus('error');
+      setErrorMessage('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
     }
   };
 
   return (
-    <div className="w-full bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-6 sm:p-8 shadow-sm">
+    <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xs transition-colors">
       {status === 'success' ? (
-        <div className="py-8 text-center space-y-4 animate-fade-in-down">
-          <div className="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto">
+        <div className="text-center py-10 space-y-4 animate-fadeIn">
+          <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 mx-auto flex items-center justify-center">
             <CheckCircle2 className="w-8 h-8" />
           </div>
-          <h3 className="text-xl font-bold text-[var(--ink-primary)]">Message Sent Successfully!</h3>
-          <p className="text-sm text-[var(--ink-body)] max-w-md mx-auto">
-            Thank you for reaching out. Your feedback has been safely submitted. We review all entries regularly.
+          <h3 className="text-xl font-bold text-[var(--ink-primary)]">Mensagem Enviada com Sucesso!</h3>
+          <p className="text-xs sm:text-sm text-[var(--ink-body)] max-w-md mx-auto leading-relaxed">
+            Obrigado pelo seu contato. Lemos todas as sugestões, dúvidas e relatos de melhorias enviados pelos nossos usuários.
           </p>
           <button
             type="button"
             onClick={() => setStatus('idle')}
-            className="mt-4 px-6 py-2.5 rounded-xl bg-[var(--canvas-inset)] border border-[var(--hairline)] text-xs font-semibold text-[var(--ink-primary)] hover:border-[var(--ink-primary)] transition cursor-pointer"
+            className="mt-4 px-5 py-2.5 rounded-xl bg-[var(--canvas-inset)] hover:bg-[var(--hairline)] text-xs font-semibold text-[var(--ink-primary)] transition cursor-pointer"
           >
-            Send Another Message
+            Enviar Outra Mensagem
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Honeypot hidden input for anti-spam */}
-          <input
-            type="text"
-            name="_website_hp"
-            value={formData._website_hp}
-            onChange={handleChange}
-            style={{ display: 'none' }}
-            tabIndex={-1}
-            autoComplete="off"
-          />
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          {/* Honeypot invisível */}
+          <div className="hidden" aria-hidden="true">
+            <input
+              type="text"
+              name="_website_hp"
+              value={formData._website_hp}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Full Name */}
-            <div>
-              <label className="block text-xs font-mono font-semibold uppercase text-[var(--ink-mute)] mb-1.5 flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-[#0070f3]" /> Your Name <span className="text-red-500">*</span>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
+                Seu Nome <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                name="name"
-                required
-                placeholder="e.g. Rahul Sharma"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--canvas-inset)] border border-[var(--hairline)] text-sm text-[var(--ink-primary)] focus:outline-none focus:border-[#0070f3] transition"
-              />
+              <div className="relative flex items-center">
+                <User className="w-4 h-4 text-[var(--ink-mute)] absolute left-3 pointer-events-none" />
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="Ex: Ana Silva"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full h-10 pl-9 pr-3 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl text-xs sm:text-sm text-[var(--ink-primary)] placeholder:text-[var(--ink-mute)]/50 focus:outline-none focus:ring-2 focus:ring-[#0070f3]/40"
+                />
+              </div>
             </div>
 
-            {/* Email Address */}
-            <div>
-              <label className="block text-xs font-mono font-semibold uppercase text-[var(--ink-mute)] mb-1.5 flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-[#7928ca]" /> Email Address <span className="text-red-500">*</span>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
+                Seu E-mail <span className="text-red-500">*</span>
               </label>
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="e.g. rahul@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--canvas-inset)] border border-[var(--hairline)] text-sm text-[var(--ink-primary)] focus:outline-none focus:border-[#7928ca] transition"
-              />
+              <div className="relative flex items-center">
+                <Mail className="w-4 h-4 text-[var(--ink-mute)] absolute left-3 pointer-events-none" />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="seuemail@exemplo.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full h-10 pl-9 pr-3 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl text-xs sm:text-sm text-[var(--ink-primary)] placeholder:text-[var(--ink-mute)]/50 focus:outline-none focus:ring-2 focus:ring-[#0070f3]/40"
+                />
+              </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Category Dropdown */}
-            <div>
-              <label className="block text-xs font-mono font-semibold uppercase text-[var(--ink-mute)] mb-1.5 flex items-center gap-1.5">
-                <Tag className="w-3.5 h-3.5 text-[#f5a623]" /> Inquiry Type
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
+                Categoria
               </label>
-              <select
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--canvas-inset)] border border-[var(--hairline)] text-sm text-[var(--ink-primary)] focus:outline-none focus:border-[#f5a623] transition cursor-pointer"
-              >
-                <option value="General Inquiry">General Inquiry</option>
-                <option value="UPSC Eligibility Query">UPSC Eligibility Query</option>
-                <option value="Bug Report">Bug Report / Correction</option>
-                <option value="Feature Suggestion">Feature Suggestion</option>
-                <option value="Other">Other</option>
-              </select>
+              <div className="relative flex items-center">
+                <Tag className="w-4 h-4 text-[var(--ink-mute)] absolute left-3 pointer-events-none" />
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="w-full h-10 pl-9 pr-3 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl text-xs sm:text-sm text-[var(--ink-primary)] focus:outline-none focus:ring-2 focus:ring-[#0070f3]/40 cursor-pointer"
+                >
+                  <option value="Dúvida Geral">Dúvida Geral</option>
+                  <option value="Sugestão de Calculadora">Sugestão de Nova Calculadora</option>
+                  <option value="Relato de Bug / Erro">Relato de Erro no Cálculo</option>
+                  <option value="Parceria / Contato Comercial">Parceria / Contato Comercial</option>
+                </select>
+              </div>
             </div>
 
-            {/* Subject */}
-            <div>
-              <label className="block text-xs font-mono font-semibold uppercase text-[var(--ink-mute)] mb-1.5">
-                Subject
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
+                Assunto (Opcional)
               </label>
               <input
                 type="text"
                 name="subject"
-                placeholder="Brief summary of your message"
+                placeholder="Ex: Sugestão para cálculo de datas"
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--canvas-inset)] border border-[var(--hairline)] text-sm text-[var(--ink-primary)] focus:outline-none focus:border-[var(--ink-primary)] transition"
+                className="w-full h-10 px-3.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl text-xs sm:text-sm text-[var(--ink-primary)] placeholder:text-[var(--ink-mute)]/50 focus:outline-none focus:ring-2 focus:ring-[#0070f3]/40"
               />
             </div>
           </div>
 
-          {/* Message Textarea */}
-          <div>
-            <label className="block text-xs font-mono font-semibold uppercase text-[var(--ink-mute)] mb-1.5 flex items-center gap-1.5">
-              <MessageSquare className="w-3.5 h-3.5 text-[#0070f3]" /> Message <span className="text-red-500">*</span>
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
+              Sua Mensagem <span className="text-red-500">*</span>
             </label>
             <textarea
               name="message"
               required
               rows={4}
-              placeholder="Describe your inquiry, question, or bug report in detail..."
+              placeholder="Digite aqui sua mensagem com o máximo de detalhes possível..."
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--canvas-inset)] border border-[var(--hairline)] text-sm text-[var(--ink-primary)] focus:outline-none focus:border-[#0070f3] transition resize-y min-h-[110px]"
+              className="w-full p-3.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl text-xs sm:text-sm text-[var(--ink-primary)] placeholder:text-[var(--ink-mute)]/50 focus:outline-none focus:ring-2 focus:ring-[#0070f3]/40"
             />
           </div>
 
           {status === 'error' && (
-            <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-xs flex items-center gap-2">
+            <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
-              <span>{errorMessage || 'Failed to submit form. Please try again.'}</span>
+              <span>{errorMessage}</span>
             </div>
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="w-full py-3.5 px-6 rounded-xl bg-[var(--ink-primary)] text-[var(--canvas-card)] font-bold text-sm hover:opacity-90 transition flex items-center justify-center gap-2 shadow-md cursor-pointer disabled:opacity-50"
+            className="w-full h-11 rounded-xl bg-[#0070f3] hover:bg-[#0761d1] disabled:opacity-50 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
           >
             {status === 'submitting' ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Submitting Message...</span>
+                <span>Enviando Mensagem...</span>
               </>
             ) : (
               <>
                 <Send className="w-4 h-4" />
-                <span>Submit Message</span>
+                <span>Enviar Mensagem</span>
               </>
             )}
           </button>
-
-          <p className="text-[11px] text-center text-[var(--ink-mute)] flex items-center justify-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-            Protected against spam. Your privacy is 100% respected.
-          </p>
         </form>
       )}
     </div>

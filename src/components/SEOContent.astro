@@ -1,192 +1,152 @@
 ---
 export interface Props {
-  page?: 'home' | 'upsc' | 'retirement' | 'dog' | 'baby' | 'datediff';
+  page?: 'home' | 'concursos' | 'retirement' | 'dog' | 'baby' | 'datediff';
 }
 
 const { page = 'home' } = Astro.props;
 
-// 1. UPSC Dedicated FAQs
-const upscFaqs = [
+// 1. FAQs da Calculadora de Concursos e Editais
+const concursosFaqs = [
   {
-    question: "What is the crucial cutoff date for UPSC CSE age calculation?",
-    answer: "As per Rule 6 of the official UPSC Civil Services Examination Notification, the crucial cutoff date is strictly 1st August of the exam year. For UPSC CSE 2026, a candidate must be between 21 and 32 years of age as of 1st August 2026.",
-    answerHtml: "<p>As per Rule 6 of the official UPSC Civil Services Examination Notification, the crucial cutoff date is strictly 1st August of the exam year. For UPSC CSE 2026, a candidate must be between 21 and 32 years of age as of 1st August 2026.</p>"
+    question: "Como calcular a idade exata para a data de posse ou corte de um concurso público?",
+    answer: "A idade para concurso público é apurada comparando a sua data de nascimento com a data limite (data de corte) expressa no edital. No Brasil, o STF sumulou (Súmula 735 e Tema 647) que a comprovação da idade máxima deve ocorrer na inscrição ou na posse, a depender da lei da carreira.",
+    answerHtml: "<p>A idade para concurso público é apurada comparando a sua data de nascimento com a data limite (data de corte) expressa no edital. No Brasil, o STF sumulou que a comprovação da idade máxima deve ocorrer conforme as regras legais do cargo.</p>"
   },
   {
-    question: "How are UPSC attempts counted?",
-    answer: "An attempt is counted only if a candidate actually appears in at least one paper of the UPSC CSE Preliminary Examination. Simply filling out the application form without appearing at the examination center does NOT count as an attempt.",
-    answerHtml: "<p>An attempt is counted only if a candidate actually appears in at least one paper of the UPSC CSE Preliminary Examination. Simply filling out the application form without appearing at the examination center does NOT count as an attempt.</p>"
+    question: "Se eu fizer aniversário logo após a data de corte, continuo aprovado na idade?",
+    answer: "Sim! Se você completar a idade limite máxima no dia seguinte à data de corte, no dia da verificação oficial você ainda tinha a idade permitida e atende perfeitamente ao requisito do edital.",
+    answerHtml: "<p>Sim! Se você completar a idade limite máxima no dia seguinte à data de corte, no dia da verificação oficial você ainda tinha a idade permitida e atende perfeitamente ao requisito do edital.</p>"
   },
   {
-    question: "What are the age relaxations for OBC, SC, ST, and PwBD candidates?",
-    answer: "OBC candidates get 3 years age relaxation (max 35 yrs) and 9 attempts. SC/ST candidates get 5 years age relaxation (max 37 yrs) and unlimited attempts. PwBD candidates get 10 years additional relaxation across all categories.",
-    answerHtml: "<p>OBC candidates get 3 years age relaxation (max 35 yrs) and 9 attempts. SC/ST candidates get 5 years age relaxation (max 37 yrs) and unlimited attempts. PwBD candidates get 10 years additional relaxation across all categories.</p>"
+    question: "Qual é a idade mínima e máxima para prestar concursos públicos?",
+    answer: "A idade mínima geral no Brasil é de 18 anos completos na data da posse (Lei 8.112/90). A idade máxima geral para o serviço público civil é de 75 anos (aposentadoria compulsória), porém carreiras policiais e militares costumam fixar limites entre 30 e 35 anos.",
+    answerHtml: "<p>A idade mínima geral no Brasil é de 18 anos completos na data da posse (Lei 8.112/90). A idade máxima geral para o serviço público civil é de 75 anos, enquanto carreiras policiais e militares fixam limites específicos.</p>"
   },
   {
-    question: "Does turning 32 during the exam year make me ineligible?",
-    answer: "Not necessarily! What matters is your exact age on 1st August of the exam year. If you turn 32 after 1st August (e.g., in September or October), you are still 31 years old on 1st August and therefore FULLY ELIGIBLE.",
-    answerHtml: "<p>Not necessarily! What matters is your exact age on 1st August of the exam year. If you turn 32 after 1st August (e.g., in September or October), you are still 31 years old on 1st August and therefore FULLY ELIGIBLE.</p>"
-  },
-  {
-    question: "What is the minimum age requirement for UPSC CSE?",
-    answer: "A candidate must have attained the age of 21 years on or before 1st August of the examination year. There are no age relaxations for the minimum age requirement of 21 years.",
-    answerHtml: "<p>A candidate must have attained the age of 21 years on or before 1st August of the examination year. There are no age relaxations for the minimum age requirement of 21 years.</p>"
+    question: "Pessoas com deficiência (PcD) possuem flexibilidade na idade máxima?",
+    answer: "Em certas esferas e editais que exigem teste de aptidão física ou limites etários específicos, há previsão de adaptações razoáveis e extensão de prazos conforme a legislação estadual e federal de inclusão.",
+    answerHtml: "<p>Em certas esferas e editais que exigem limites etários específicos, há previsão de adaptações razoáveis conforme a legislação de inclusão.</p>"
   }
 ];
 
-// 2. Retirement Dedicated FAQs
+// 2. FAQs da Aposentadoria
 const retirementFaqs = [
   {
-    question: "at what age can i retire calculator",
-    answer: "Determining when you can retire depends on your pension plan rules and financial targets. Calculate your exact current age, then subtract it from your target retirement age (e.g. 58, 60, or 65) to determine your remaining working timeline in years, months, and days.",
-    answerHtml: "<p>Determining when you can retire depends on your pension plan rules and financial targets. Calculate your exact current age, then subtract it from your target retirement age (e.g. 58, 60, or 65) to determine your remaining working timeline in years, months, and days.</p>"
+    question: "Com quantos anos posso me aposentar pelo INSS?",
+    answer: "Pelas regras gerais da Reforma da Previdência (EC 103/2019) no Brasil, a idade mínima para aposentadoria urbana é de 62 anos para mulheres e 65 anos para homens, exigindo-se também o tempo mínimo de contribuição de 15 anos para mulheres e 20 anos para novos homens.",
+    answerHtml: "<p>Pelas regras gerais da Reforma da Previdência (EC 103/2019) no Brasil, a idade mínima para aposentadoria urbana é de <strong>62 anos para mulheres</strong> e <strong>65 anos para homens</strong>, com tempo mínimo de contribuição.</p>"
   },
   {
-    question: "what age can i retire calculator",
-    answer: "Retirement age depends on employer policies and country rules. In India, central government services and UPSC officer standard retirement age is 60 years. In the US and UK, standard state pension ages range from 66 to 67 years.",
-    answerHtml: "<p>Retirement age depends on employer policies and country rules. In India, central government services and UPSC officer standard retirement age is 60 years. In the US and UK, standard state pension ages range from 66 to 67 years.</p>"
+    question: "Como funciona o cálculo de idade para aposentadoria?",
+    answer: "O cálculo de idade para aposentadoria cruza a sua data de nascimento exata com a data em que você completará a idade mínima legal (ex: 62 ou 65 anos). Nossa calculadora calcula com precisão os anos, meses e dias restantes.",
+    answerHtml: "<p>O cálculo cruza a sua data de nascimento exata com a data em que você completará a idade mínima legal, mostrando o tempo restante em anos, meses e dias.</p>"
   },
   {
-    question: "at age 73 what is the rmd calculator",
-    answer: "For retirement account holders (such as US 401k/IRA holders reaching Required Minimum Distribution age 73, or Indian NPS account annuity planning), calculating your exact age determines when compulsory distribution rules take effect.",
-    answerHtml: "<p>For retirement account holders (such as US 401k/IRA holders reaching Required Minimum Distribution age 73, or Indian NPS account annuity planning), calculating your exact age determines when compulsory distribution rules take effect.</p>"
-  },
-  {
-    question: "how am i doing financially for my age calculator",
-    answer: "Financial benchmarks depend on your current age. Financial advisors recommend saving 1x your annual salary by age 30, 3x by age 40, and 6x by age 50. Use our calculator to determine your exact age and align your pension savings.",
-    answerHtml: "<p>Financial benchmarks depend on your current age. Financial advisors recommend saving 1x your annual salary by age 30, 3x by age 40, and 6x by age 50. Use our calculator to determine your exact age and align your pension savings.</p>"
-  },
-  {
-    question: "how to calculate government service retirement age",
-    answer: "For Indian government employees, retirement occurs on the last day of the month in which the officer completes 60 years of age (or 58/62 in select state services). If born on the 1st of a month, retirement occurs on the last day of the preceding month.",
-    answerHtml: "<p>For Indian government employees, retirement occurs on the last day of the month in which the officer completes 60 years of age (or 58/62 in select state services). If born on the 1st of a month, retirement occurs on the last day of the preceding month.</p>"
+    question: "Existe regra de transição por pontos ou pedágio?",
+    answer: "Sim, para quem já contribuía antes de novembro de 2019, existem regras de transição como a Regra de Pontos (Idade + Tempo de Contribuição), Pedágio de 50% e Pedágio de 100%. Calcule sua idade exata para saber em qual ano você atinge os pontos.",
+    answerHtml: "<p>Sim, existem regras de transição como Pontos, Pedágio 50% e Pedágio 100%. Conhecer sua idade exata é o primeiro passo para o planejamento previdenciário.</p>"
   }
 ];
 
-// 3. Dog Dedicated FAQs
+// 3. FAQs da Idade Canina
 const dogFaqs = [
   {
-    question: "how to convert dog years to human years",
-    answer: "The old '1 human year = 7 dog years' rule is inaccurate. Veterinary standards (AVMA) specify that a dog's first year equals about 15 human years, year two adds ~9 human years, and subsequent years add 4–7 human years depending on breed size.",
-    answerHtml: "<p>The old '1 human year = 7 dog years' rule is inaccurate. Veterinary standards (AVMA) specify that a dog's first year equals about 15 human years, year two adds ~9 human years, and subsequent years add 4–7 human years depending on breed size.</p>"
+    question: "Como calcular a idade do cachorro em anos humanos?",
+    answer: "A regra de multiplicar a idade do cão por 7 está ultrapassada. A Associação Americana de Medicina Veterinária (AVMA) estabelece que o primeiro ano de vida do cão equivale a cerca de 15 anos humanos, o segundo ano adiciona mais 9 anos (totalizando 24 anos humanos aos 2 anos), e os anos seguintes somam de 4 a 7,5 anos dependendo do porte do animal.",
+    answerHtml: "<p>A regra de multiplicar por 7 é um mito. O primeiro ano do cão equivale a cerca de 15 anos humanos, o segundo soma 9 anos (~24 anos humanos), e os anos subsequentes variam pelo porte (pequeno, médio, grande ou gigante).</p>"
   },
   {
-    question: "how much sleep do dogs need by age calculator",
-    answer: "Dog sleep requirements vary significantly by age: puppies require 18–20 hours per day, adult dogs need 12–14 hours, and senior dogs (7+ years) need 14–18 hours. Knowing your dog's exact age helps tailor their daily sleep and rest environment.",
-    answerHtml: "<p>Dog sleep requirements vary significantly by age: puppies require 18–20 hours per day, adult dogs need 12–14 hours, and senior dogs (7+ years) need 14–18 hours. Knowing your dog's exact age helps tailor their daily sleep and rest environment.</p>"
+    question: "A partir de que idade o cachorro é considerado idoso (sênior)?",
+    answer: "Cães de porte pequeno tornam-se idosos por volta dos 8 a 10 anos. Cães médios atingem a fase sênior aos 7 a 8 anos. Já cães de porte grande e gigante entram na fase idosa mais cedo, entre 5 e 6 anos de vida.",
+    answerHtml: "<p>Cães de porte pequeno tornam-se idosos aos 8-10 anos; cães médios aos 7-8 anos; e cães de porte grande ou gigante por volta dos 5-6 anos.</p>"
   },
   {
-    question: "how much wet food to feed a dog calculator by age",
-    answer: "Wet food portion sizes depend on your dog's age stage (puppy, adult, or senior) and body weight. Senior dogs often require softer wet food with caloric adjustments based on their lower activity levels and exact age in years.",
-    answerHtml: "<p>Wet food portion sizes depend on your dog's age stage (puppy, adult, or senior) and body weight. Senior dogs often require softer wet food with caloric adjustments based on their lower activity levels and exact age in years.</p>"
-  },
-  {
-    question: "how much to feed a puppy calculator by age",
-    answer: "Puppies require frequent meals (3–4 times daily between 2–6 months old) scaled to their age in weeks and projected adult weight. Calculate your puppy's exact age in weeks and months to determine their daily calorie requirements.",
-    answerHtml: "<p>Puppies require frequent meals (3–4 times daily between 2–6 months old) scaled to their age in weeks and projected adult weight. Calculate your puppy's exact age in weeks and months to determine their daily calorie requirements.</p>"
-  },
-  {
-    question: "when is a dog considered senior by breed size",
-    answer: "Small dogs (under 20 lbs) become seniors around 9-10 years old. Medium dogs (20-50 lbs) reach senior stage at 8-9 years. Large dogs (50-90 lbs) are senior at 7-8 years, while Giant breeds (90+ lbs) reach senior status as early as 5-6 years.",
-    answerHtml: "<p>Small dogs (under 20 lbs) become seniors around 9-10 years old. Medium dogs (20-50 lbs) reach senior stage at 8-9 years. Large dogs (50-90 lbs) are senior at 7-8 years, while Giant breeds (90+ lbs) reach senior status as early as 5-6 years.</p>"
+    question: "Quantas horas por dia um cachorro deve dormir de acordo com a idade?",
+    answer: "Filhotes dormem entre 18 e 20 horas por dia para sustentar seu rápido desenvolvimento. Cães adultos dormem de 12 a 14 horas diárias, e cães idosos necessitam de 14 a 18 horas de descanso diário.",
+    answerHtml: "<p>Filhotes dormem de 18 a 20 horas/dia; adultos de 12 a 14 horas; e cães idosos entre 14 e 18 horas por dia.</p>"
   }
 ];
 
-// 4. Baby Dedicated FAQs
+// 4. FAQs da Idade Gestacional e Bebê
 const babyFaqs = [
   {
-    question: "how to calculate baby age in weeks and months",
-    answer: "Baby age is computed from the exact birth date to today. For infants under 1 year, pediatricians measure age in completed weeks and months (e.g. 14 weeks old or 3 months 12 days old) to track vaccination schedules and physical milestones.",
-    answerHtml: "<p>Baby age is computed from the exact birth date to today. For infants under 1 year, pediatricians measure age in completed weeks and months (e.g. 14 weeks old or 3 months 12 days old) to track vaccination schedules and physical milestones.</p>"
+    question: "O que é calculadora de idade gestacional e como funciona?",
+    answer: "A calculadora de idade gestacional calcula o tempo de gravidez em semanas e dias a partir da Data da Última Menstruação (DUM) ou da ultrassonografia de primeiro trimestre. Ela determina a idade fetal e a Data Provável do Parto (DPP).",
+    answerHtml: "<p>A <strong>calculadora de idade gestacional</strong> calcula o tempo de gravidez em semanas e dias a partir da DUM ou ecografia, permitindo acompanhar o desenvolvimento fetal semana a semana.</p>"
   },
   {
-    question: "what is premature baby corrected age calculator",
-    answer: "Corrected age (or gestated age) adjusts a premature baby's chronological age by subtracting the number of weeks born early (before 37 weeks). For example, if a 16-week-old baby was born 4 weeks early, their corrected developmental age is 12 weeks.",
-    answerHtml: "<p>Corrected age (or gestated age) adjusts a premature baby's chronological age by subtracting the number of weeks born early (before 37 weeks). For example, if a 16-week-old baby was born 4 weeks early, their corrected developmental age is 12 weeks.</p>"
+    question: "O que é calculadora de idade corrigida para bebês prematuros?",
+    answer: "A calculadora de idade corrigida desconta as semanas que faltaram para o bebê completar 40 semanas de gestação da sua idade cronológica. Por exemplo: se um bebê tem 16 semanas de vida cronológica mas nasceu 4 semanas prematuro (com 36 semanas), sua idade corrigida é de 12 semanas (3 meses de desenvolvimento).",
+    answerHtml: "<p>A <strong>calculadora de idade corrigida</strong> desconta as semanas de prematuridade em relação a 40 semanas. Pediatras usam a idade corrigida para avaliar marcos motores, sono e introdução alimentar até os 2 anos.</p>"
   },
   {
-    question: "how to calculate age for school admission entry",
-    answer: "School entry rules (like India's NEP 2020 Class 1 minimum age of 6 years as of 31st March or 1st June) require exact age calculation as of the school's cutoff date. Enter your child's birth date and the school cutoff date to check eligibility.",
-    answerHtml: "<p>School entry rules (like India's NEP 2020 Class 1 minimum age of 6 years as of 31st March or 1st June) require exact age calculation as of the school's cutoff date. Enter your child's birth date and the school cutoff date to check eligibility.</p>"
+    question: "Como calcular a idade do bebê em semanas e meses?",
+    answer: "Insira a data e o horário do nascimento do recém-nascido na nossa ferramenta. Ela decompõe a idade do bebê em meses e dias completos, total de semanas vividas, dias totais e a data exata do próximo mesversário.",
+    answerHtml: "<p>Nossa calculadora decompõe a idade do bebê em meses, dias, semanas completas e indica os dias até o próximo mesversário e o 1º aninho.</p>"
   },
   {
-    question: "how much to save for college by age calculator",
-    answer: "Financial planners suggest saving specific multiples of annual higher education costs based on your child's current age (e.g. 25% of goal by age 6, 50% by age 12). Tracking your child's exact age in years and months helps align college fund targets.",
-    answerHtml: "<p>Financial planners suggest saving specific multiples of annual higher education costs based on your child's current age (e.g. 25% of goal by age 6, 50% by age 12). Tracking your child's exact age in years and months helps align college fund targets.</p>"
-  },
-  {
-    question: "why is corrected age important for motor milestones",
-    answer: "Pediatricians evaluate motor skills (rolling over, sitting, crawling) using corrected age until a premature child reaches 2 to 2.5 years of age. This prevents unnecessary developmental concern while early brain development catches up.",
-    answerHtml: "<p>Pediatricians evaluate motor skills (rolling over, sitting, crawling) using corrected age until a premature child reaches 2 to 2.5 years of age. This prevents unnecessary developmental concern while early brain development catches up.</p>"
+    question: "Por que a idade corrigida é fundamental para o acompanhamento pediátrico?",
+    answer: "Avaliar o bebê prematuro pela idade cronológica pode gerar preocupações desnecessárias com atrasos no rolar, sentar ou falar. A idade corrigida respeita o tempo biológico de maturação neurológica da criança.",
+    answerHtml: "<p>A idade corrigida respeita o tempo biológico de maturação do cérebro e dos órgãos do bebê prematuro, evitando diagnósticos equivocados de atraso motor.</p>"
   }
 ];
 
-// 5. Date Difference Dedicated FAQs
+// 5. FAQs de Idade Entre Datas
 const dateDiffFaqs = [
   {
-    question: "how to calculate exact days between two dates",
-    answer: "Our Date Difference Calculator measures the precise interval between any two dates. It accounts for leap years, differing month lengths, and exact time of day to give total years, months, days, hours, and seconds.",
-    answerHtml: "<p>Our Date Difference Calculator measures the precise interval between any two dates. It accounts for leap years, differing month lengths, and exact time of day to give total years, months, days, hours, and seconds.</p>"
+    question: "Como funciona a calculadora de idade entre datas?",
+    answer: "A calculadora de idade entre datas afere o intervalo exato entre uma data inicial e uma data final. Ela leva em conta anos bissextos (29 de fevereiro) e o número correto de dias em cada mês (28, 30 ou 31), fornecendo o resultado em anos, meses, dias, semanas, horas e minutos.",
+    answerHtml: "<p>A <strong>calculadora de idade entre datas</strong> calcula o intervalo preciso entre dois momentos no tempo, ajustando automaticamente meses de durações diferentes e anos bissextos.</p>"
   },
   {
-    question: "what age did my mom have me calculator",
-    answer: "To calculate how old your mother was when you were born, enter your mother's Date of Birth as the 'Start Date' and your Date of Birth as the 'End Date'. The tool displays her exact age in years, months, and days on your birth date.",
-    answerHtml: "<p>To calculate how old your mother was when you were born, enter your mother's Date of Birth as the 'Start Date' and your Date of Birth as the 'End Date'. The tool displays her exact age in years, months, and days on your birth date.</p>"
+    question: "Como calcular quantos anos minha mãe ou pai tinham quando eu nasci?",
+    answer: "Coloque a Data de Nascimento da sua mãe (ou pai) no campo 'Data Inicial' e a sua Data de Nascimento no campo 'Data Final'. O resultado indicará exatamente quantos anos, meses e dias eles tinham no dia do seu parto.",
+    answerHtml: "<p>Basta inserir a data de nascimento dos pais na Data Inicial e a sua na Data Final para obter a idade exata deles no momento do seu nascimento.</p>"
   },
   {
-    question: "how to calculate age gap between two people",
-    answer: "Enter Person A's date of birth as Date 1 and Person B's date of birth as Date 2. The calculator computes the exact age difference in years, months, days, and total hours between both individuals.",
-    answerHtml: "<p>Enter Person A's date of birth as Date 1 and Person B's date of birth as Date 2. The calculator computes the exact age difference in years, months, days, and total hours between both individuals.</p>"
-  },
-  {
-    question: "does date difference include leap year days",
-    answer: "Yes! Our algorithm dynamically identifies all leap years occurring between your start and end dates (adding February 29th extra day count) to ensure 100% mathematical precision.",
-    answerHtml: "<p>Yes! Our algorithm dynamically identifies all leap years occurring between your start and end dates (adding February 29th extra day count) to ensure 100% mathematical precision.</p>"
-  },
-  {
-    question: "how to calculate duration in total hours and seconds",
-    answer: "In addition to years, months, and days, our tool converts the total date interval into standalone total days, total hours, total minutes, and live total seconds.",
-    answerHtml: "<p>In addition to years, months, and days, our tool converts the total date interval into standalone total days, total hours, total minutes, and live total seconds.</p>"
+    question: "Como calcular a diferença de idade entre duas pessoas?",
+    answer: "Insira a data de nascimento da pessoa mais velha como Data 1 e da mais nova como Data 2. O cálculo exibe a diferença de idade exata em anos, meses e dias decorridos.",
+    answerHtml: "<p>Insira a data da pessoa mais velha na Data 1 e da mais jovem na Data 2 para ver a diferença exata de idade.</p>"
   }
 ];
 
-// 6. Home / General Chronological Age FAQs
+// 6. FAQs da Página Inicial (Calculadora de Idade Principal)
 const homeFaqs = [
   {
-    question: "How to use an age calculator by date of birth?",
-    answer: "To use an age calculator by date of birth, select your day, month, and year of birth. Our free online age calculator instantly computes your exact chronological age in years, months, days, hours, and seconds.",
-    answerHtml: "<p>To use an age calculator by date of birth, select your day, month, and year of birth. Our free online age calculator instantly computes your exact chronological age in years, months, days, hours, and seconds.</p>"
+    question: "Como usar a calculadora de idade por data de nascimento?",
+    answer: "Para calcular sua idade exata, basta digitar o dia, mês e ano em que você nasceu no campo indicado (formato DD/MM/AAAA). Nossa calculadora de idade online exibe instantaneamente quantos anos, meses, dias, semanas, horas e segundos você já viveu, atualizando em tempo real.",
+    answerHtml: "<p>Para usar a <strong>calculadora de idade</strong>, insira sua data de nascimento no campo DD/MM/AAAA. O sistema processa instantaneamente sua idade cronológica exata em anos, meses, dias, semanas, horas e segundos ao vivo.</p>"
   },
   {
-    question: "What is a chronological age calculator?",
-    answer: "A chronological age calculator measures the exact amount of calendar time elapsed from your date of birth to today or any specified cutoff date, taking into account leap years and varying month lengths.",
-    answerHtml: "<p>A chronological age calculator measures the exact amount of calendar time elapsed from your date of birth to today or any specified cutoff date, taking into account leap years and varying month lengths.</p>"
+    question: "Quantos anos eu tenho hoje? Como descobrir minha idade exata?",
+    answer: "Ao digitar sua data de nascimento na nossa calculadora, ela compara o dia do seu nascimento com o relógio exato de hoje. O resultado revela quantos anos completos você tem, quantos meses e dias se passaram desde o seu último aniversário e quantos dias faltam para a sua próxima celebração.",
+    answerHtml: "<p>Se você tem a dúvida <strong>'quantos anos eu tenho'</strong> ou <strong>'minha idade'</strong>, nossa ferramenta faz o cálculo instantâneo comparando seu nascimento com a data de hoje, detalhando anos, meses e dias exatos.</p>"
   },
   {
-    question: "How does the age calculator on today work?",
-    answer: "The age calculator on today evaluates your age as of the current date. It automatically detects today's date from your device clock and calculates your age breakdown with live second-by-second updates.",
-    answerHtml: "<p>The age calculator on today evaluates your age as of the current date. It automatically detects today's date from your device clock and calculates your age breakdown with live second-by-second updates.</p>"
+    question: "Como o Google calcula quantos anos eu tenho?",
+    answer: "Quando você busca no Google 'google quantos anos eu tenho' ou 'calcular idade', os mecanismos de busca necessitam da sua data de nascimento para calcular a diferença de dias e anos. A nossa calculadora de idade atual fornece um detalhamento muito mais completo que a busca padrão, incluindo segundos em tempo real e marcos de vida.",
+    answerHtml: "<p>Ao pesquisar <strong>'google quantos anos eu tenho'</strong> ou <strong>'calcular idade'</strong>, você encontra respostas básicas. A nossa <strong>calculadora de idade atual</strong> oferece o relatório completo: anos, meses, dias, semanas, total de horas e contagem ao vivo de segundos.</p>"
   },
   {
-    question: "Is this free online age calculator private and secure?",
-    answer: "Yes! Our free online age calculator processes all birth dates 100% client-side inside your browser JavaScript engine. We never transmit or store your personal date of birth on external servers.",
-    answerHtml: "<p>Yes! Our free online age calculator processes all birth dates 100% client-side inside your browser JavaScript engine. We never transmit or store your personal date of birth on external servers.</p>"
+    question: "Qual a diferença entre idade cronológica e calculo de idade e meses?",
+    answer: "A idade cronológica é o tempo total decorrido desde o nascimento. O cálculo de idade e meses especifica não apenas o número redondo de anos, mas a quantidade de meses e dias exatos completados no ciclo atual.",
+    answerHtml: "<p>O <strong>cálculo de idade e meses</strong> detalha os ciclos mensais além do ano cheio, permitindo saber, por exemplo, que você tem 25 anos, 7 meses e 14 dias de vida.</p>"
   },
   {
-    question: "How to check eligibility using the age calculator of upsc?",
-    answer: "Select the UPSC Age Calculator tool from our navigation menu, select your category (GEN, EWS, OBC, SC, ST, PwBD), and enter your date of birth. It calculates your exact age as of the official 1st August cutoff date.",
-    answerHtml: "<p>Select the UPSC Age Calculator tool from our navigation menu, select your category (GEN, EWS, OBC, SC, ST, PwBD), and enter your date of birth. It calculates your exact age as of the official 1st August cutoff date.</p>"
+    question: "A calculadora de idade é gratuita, segura e privativa?",
+    answer: "Sim, 100% gratuita! Todo o processamento do cálculo de idade ocorre localmente no seu próprio navegador via JavaScript. Nenhuma data de nascimento ou dado pessoal é transmitido ou armazenado em servidores externos.",
+    answerHtml: "<p>Sim! O serviço é 100% gratuito e seguro. Todo o <strong>cálculo de idade</strong> é executado dentro do seu próprio dispositivo, garantindo total privacidade e velocidade instantânea.</p>"
   },
   {
-    question: "How to convert dog age to human age?",
-    answer: "Use our dog age calculator to convert your dog age in human years. It factors in veterinary breed size categories (small, medium, large, giant) for accurate life stage conversion.",
-    answerHtml: "<p>Use our dog age calculator to convert your dog age in human years. It factors in veterinary breed size categories (small, medium, large, giant) for accurate life stage conversion.</p>"
+    question: "A ferramenta funciona em celulares, tablets e computadores?",
+    answer: "Sim! A Calculadora de Idade (calculadoradeidade.com) é um aplicativo web responsivo otimizado para celulares Android, iPhone (iOS), tablets e computadores, funcionando inclusive quando você estiver sem conexão de internet (offline).",
+    answerHtml: "<p>Sim, nossa <strong>calculadora idade</strong> funciona perfeitamente em qualquer smartphone, tablet ou computador, com suporte a modo offline.</p>"
   }
 ];
 
 const faqMap = {
   home: homeFaqs,
-  upsc: upscFaqs,
+  concursos: concursosFaqs,
   retirement: retirementFaqs,
   dog: dogFaqs,
   baby: babyFaqs,
@@ -198,6 +158,7 @@ const faqItems = faqMap[page] || homeFaqs;
 const schemaJson = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "inLanguage": "pt",
   "mainEntity": faqItems.map(item => ({
     "@type": "Question",
     "name": item.question,
@@ -213,34 +174,34 @@ const schemaJson = {
 
 <section id="faq" class="mt-16 pt-16 border-t border-[var(--hairline)] space-y-12">
   
-  <!-- Route-Tailored SEO Guide Article -->
-  <article class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-8 shadow-sm space-y-8">
+  {/* Artigo Guia SEO Completo */}
+  <article class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xs space-y-8">
     <header class="border-b border-[var(--hairline)] pb-6 space-y-2">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--canvas-inset)] border border-[var(--hairline)] text-xs font-mono text-[#0070f3]">
-        {page === 'upsc' && 'UPSC Rule 6 Official Eligibility Standard'}
-        {page === 'retirement' && 'Retirement & Pension Countdown Guide'}
-        {page === 'dog' && 'Veterinary AVMA Breed Formula Guide'}
-        {page === 'baby' && 'Pediatric Growth & Milestone Guide'}
-        {page === 'datediff' && 'Date Interval & Age Gap Guide'}
-        {page === 'home' && 'Comprehensive On-Page SEO Guide & Technical Documentation'}
+        {page === 'concursos' && 'Guia Oficial de Limite de Idade e Editais de Concursos'}
+        {page === 'retirement' && 'Guia Completo de Aposentadoria, INSS e Idade Mínima'}
+        {page === 'dog' && 'Guia Veterinário de Idade Canina em Anos Humanos'}
+        {page === 'baby' && 'Guia de Idade Gestacional, Bebês e Idade Corrigida'}
+        {page === 'datediff' && 'Guia de Diferença Entre Datas e Intervalos de Tempo'}
+        {page === 'home' && 'Guia Completo: Calculadora de Idade Online e Cálculo Cronológico'}
       </div>
 
-      <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[var(--ink-primary)]">
-        {page === 'upsc' && 'The Definitive Guide to UPSC Civil Services Age Calculation & Cutoff Rules'}
-        {page === 'retirement' && 'Planning Your Retirement Timeline: State Pensions, RMDs & Career Milestones'}
-        {page === 'dog' && 'Understanding Dog Years vs Human Years: Breed Size Formulas & Care Guidelines'}
-        {page === 'baby' && 'Pediatric Guide to Baby Age, Premature Corrected Age & Milestone Tracking'}
-        {page === 'datediff' && 'Mastering Date Difference Calculations: Intervals, Age Gaps & Duration Math'}
-        {page === 'home' && 'The Definitive Guide to Online Age Calculation & Chronological Milestones'}
+      <h2 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-[var(--ink-primary)]">
+        {page === 'concursos' && 'Como Funciona a Idade Limite em Concursos Públicos e Editais'}
+        {page === 'retirement' && 'Planejamento de Aposentadoria: Idade Mínima, Tempo de Trabalho e Metas'}
+        {page === 'dog' && 'Como Calcular a Idade do Cachorro em Anos Humanos por Porte'}
+        {page === 'baby' && 'Idade Gestacional, Idade do Bebê em Semanas e Idade Corrigida'}
+        {page === 'datediff' && 'Como Calcular a Diferença Exata Entre Duas Datas'}
+        {page === 'home' && 'Calculadora de Idade: Como Calcular Minha Idade Exata por Data de Nascimento'}
       </h2>
 
-      <p class="text-xs text-[var(--ink-mute)]">
-        {page === 'upsc' && 'Everything you need to know about Rule 6, the 1st August cutoff date, attempt limits, and category relaxations.'}
-        {page === 'retirement' && 'Calculate years remaining until age 58, 60, 65, or 73 with state pension and retirement annuity insights.'}
-        {page === 'dog' && 'Learn how canine aging works using veterinary breed standards for small, medium, large, and giant dogs.'}
-        {page === 'baby' && 'Track infant age in weeks, months, and days with pediatric corrected age for premature births.'}
-        {page === 'datediff' && 'Compute precise time durations between historical or future dates in total days, hours, and seconds.'}
-        {page === 'home' && 'Everything you need to know about calculating age by date of birth, exam cutoffs, retirement, pet milestones, and algorithms.'}
+      <p class="text-xs sm:text-sm text-[var(--ink-mute)]">
+        {page === 'concursos' && 'Aprenda como calcular a sua idade exata na data de corte do concurso, regras de posse e requisitos legais.'}
+        {page === 'retirement' && 'Descubra quanto tempo falta para se aposentar, regras do INSS e simulação de anos de trabalho restantes.'}
+        {page === 'dog' && 'Entenda o envelhecimento canino de acordo com a ciência veterinária para cães pequenos, médios, grandes e gigantes.'}
+        {page === 'baby' && 'Acompanhe o crescimento do bebê em semanas e meses e compreenda a importância da idade corrigida para prematuros.'}
+        {page === 'datediff' && 'Calcule intervalos precisos em anos, meses, dias, semanas, horas e minutos entre quaisquer datas do calendário.'}
+        {page === 'home' && 'Tudo sobre cálculo de idade, anos vividos, contagem regressiva para aniversário e suporte a todos os fusos horários.'}
       </p>
     </header>
 
@@ -249,162 +210,78 @@ const schemaJson = {
       {page === 'home' && (
         <>
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              1. What is an Online Age Calculator?
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              1. O que é uma Calculadora de Idade Online?
             </h3>
             <p>
-              An <strong>online age calculator</strong> is a free web tool designed to calculate your exact chronological duration of life. By entering your date of birth, a <strong>free online age calculator</strong> computes your complete age breakdown in total years, completed months, remaining days, hours, and live seconds. Using an <strong>age calculator by date of birth</strong> ensures 100% mathematical precision because it accounts for leap years, varying month lengths (28, 30, or 31 days), and timezone variations.
+              Uma <strong>calculadora de idade</strong> é uma ferramenta digital desenvolvida para medir com 100% de exatidão o tempo decorrido desde o instante do seu nascimento até o dia de hoje ou qualquer outra data de referência. Ao informar sua data de nascimento, nossa <strong>calculadora de idade atual</strong> decompõe seu tempo de vida em anos completos, meses decorridos, dias restantes, semanas, horas acumuladas e segundos em tempo real.
             </p>
             <p>
-              Whether you need a <strong>chronological age calculator</strong> to verify personal milestones, calculate an <strong>age calculator on today</strong> date, or determine your exact age for official documentation, an <strong>age calculator</strong> provides immediate and accurate results. Our web application functions as a precision <strong>age calculator of india</strong> and global utility operating entirely inside your browser.
+              Ao contrário de uma estimativa mental rápida, utilizar uma <strong>calculadora de idade e meses</strong> profissional garante precisão matemática absoluta, pois nosso algoritmo considera automaticamente as variações de dias dos meses (fevereiro com 28 ou 29 dias, meses de 30 e 31 dias) e os ciclos de <strong>anos bissextos</strong>.
             </p>
           </section>
 
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              2. Official UPSC CSE Eligibility & Exam Age Limits
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              2. Como responder: "Quantos anos eu tenho?" e "Qual é a minha idade?"
             </h3>
             <p>
-              For Civil Services examination candidates in India, verifying your <strong>upsc age limit</strong> is a critical first step before filling out official application forms. Using a dedicated <strong>age calculator of upsc</strong> helps candidates verify their exact eligibility as of the official 1st August cutoff date specified under Rule 6 of the Civil Services Examination notification.
+              Muitas pessoas recorrem à internet buscando <strong>"quantos anos eu tenho"</strong>, <strong>"minha idade"</strong> ou <strong>"google quantos anos eu tenho"</strong> para preencher formulários oficiais, documentos de viagem, cadastros em concursos públicos, matrículas escolares ou simplesmente para matar a curiosidade sobre quantos dias ou horas de vida já completaram.
             </p>
             <p>
-              Our <strong>age calculator of upsc</strong> calculates whether your birth date falls between the allowed minimum age of 21 years and maximum age limits. It incorporates category-specific age relaxations for General, EWS, OBC, SC, ST, PwBD, and Ex-Servicemen aspirants across India. By entering your birth date into the <strong>age calculator of upsc</strong>, candidates can check remaining exam attempts, category age caps, and exact time left until their 21st birthday.
+              Basta inserir sua data de nascimento na ferramenta acima para <strong>calcular idade</strong> em poucos milissegundos. Você terá em mãos um relatório visual completo com a sua <strong>idade</strong> detalhada e a contagem regressiva exata para o seu próximo aniversário.
             </p>
           </section>
 
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              3. Retirement Planning & Social Security Timeline Tools
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              3. O Cálculo de Idade e Suas Aplicações Práticas
             </h3>
             <p>
-              Planning your career trajectory and pension horizon requires a reliable <strong>retirement age calculator</strong>. Depending on your employment sector, standard retirement milestones occur at age 58, 60, 65, or 73. Using a <strong>retirement age calculator</strong> allows government servants and private sector professionals to compute the exact number of working years, months, and days remaining before official retirement.
+              O <strong>calculo de idade</strong> é indispensável em inúmeras situações do cotidiano e do mundo profissional:
             </p>
-            <p>
-              For individuals analyzing long-term pension reserves or financial independence, a <strong>social security retirement age calculator</strong> and <strong>full retirement age calculator</strong> help track key age thresholds. By inputting your birth date and career joining age, our <strong>retirement age calculator</strong> calculates your exact career completion percentage and countdown to state pension eligibility.
-            </p>
-          </section>
-
-          <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              4. Dog Age Calculator & Canine Life Stage Conversion
-            </h3>
-            <p>
-              Determining a canine companion's true biological stage requires more than multiplying calendar years by seven. A specialized <strong>dog age calculator</strong> applies veterinary standards to compute <strong>dog age in human years</strong> based on breed size categories, including small, medium, large, and giant breeds.
-            </p>
-            <p>
-              Using a <strong>dog age calculator by breed</strong> or <strong>pedigree dog age calculator</strong> helps pet owners understand how rapid juvenile growth during the first two years shifts into gradual adult aging. Whether tracking a puppy using a <strong>dog age calculator months</strong>, evaluating a <strong>new dog age calculator</strong> profile, assessing a <strong>senior dog age</strong> tier, or determining if a dog at <strong>dog age 11</strong> requires specialized care, our <strong>dog age to human age</strong> tool and <strong>dog age test</strong> provide complete life stage guidance for your pet's <strong>dog age</strong>.
-            </p>
-          </section>
-
-          <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              5. Child & Baby Age Tracking for School Admissions & Milestones
-            </h3>
-            <p>
-              Parents and pediatric healthcare providers frequently require an <strong>age calculator of child</strong> or <strong>age calculator of baby</strong> to track growth milestones, vaccination schedules, and school admission entry cutoffs. Determining a child's exact <strong>child age</strong> in completed weeks and months ensures proper alignment with developmental charts.
-            </p>
-            <p>
-              Our dedicated <strong>child age calculator</strong> enables parents to input their baby's birth date and compute exact age as of any specified school entry cutoff date. For premature births, the <strong>age calculator of baby</strong> adjusts for gestational weeks born early, providing pediatric corrected age to accurately evaluate infant motor milestones.
-            </p>
-          </section>
-
-          <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              6. Date Interval & Specific Date Calculation
-            </h3>
-            <p>
-              Whether you want to run an <strong>age calculator on date</strong> for a historical event or determine your <strong>age calculator on today</strong> timestamp, our web engine processes exact date differences instantly. By selecting any custom reference date, an <strong>online age calculator</strong> or <strong>free online age calculator</strong> computes total days, hours, minutes, and seconds lived.
-            </p>
-            <p>
-              Our platform offers a complete <strong>chronological age calculator</strong> suite for India and global users. All calculations run 100% client-side in your browser, guaranteeing total data privacy and zero latency.
-            </p>
-          </section>
-        </>
-      )}
-
-      {page === 'upsc' && (
-        <>
-          <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              1. Rule 6 & The Official 1st August Cutoff Date
-            </h3>
-            <p>
-              In India, millions of Civil Services aspirants rely on an official <strong>age calculator of upsc</strong> to verify compliance with Rule 6 of the Civil Services Examination (CSE) notification. The Union Public Service Commission specifies a fixed crucial cutoff date: <strong>1st August of the examination year</strong>.
-            </p>
-            <p>
-              If your date of birth falls between 2nd August 1994 and 1st August 2005 (for General category in UPSC CSE 2026), you are eligible. If you turn 32 after 1st August 2026, you remain fully eligible because your age on the cutoff date was 31.
-            </p>
-          </section>
-
-          <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              2. Category-Wise Attempt Limits & Age Relaxations
-            </h3>
-            <ul class="list-disc list-inside space-y-1 text-xs font-mono-num text-[var(--ink-primary)] pl-2">
-              <li><strong>General / EWS:</strong> Upper age cap 32 Years (6 Attempts)</li>
-              <li><strong>OBC (Non-Creamy Layer):</strong> Upper age cap 35 Years (+3 Yrs relaxation, 9 Attempts)</li>
-              <li><strong>SC / ST:</strong> Upper age cap 37 Years (+5 Yrs relaxation, Unlimited Attempts)</li>
-              <li><strong>PwBD Candidates:</strong> +10 Years cumulative relaxation across all categories</li>
-              <li><strong>Ex-Servicemen:</strong> Up to 5 years relaxation for ECOs/SSCOs with 5+ years service</li>
+            <ul class="list-disc list-inside space-y-1.5 pl-2 text-xs sm:text-sm">
+              <li><strong>Concursos e Vagas de Emprego:</strong> Verificação da idade mínima de 18 anos ou idade máxima estipulada em editais.</li>
+              <li><strong>Planejamento Previdenciário:</strong> Acompanhamento dos requisitos de idade mínima para aposentadoria no INSS.</li>
+              <li><strong>Pediatria e Desenvolvimento Infantil:</strong> Acompanhamento de marcos motores e vacinas em bebês por meio da <strong>calculadora de idade gestacional</strong> e <strong>calculadora de idade corrigida</strong>.</li>
+              <li><strong>Comparação de Datas:</strong> Medição de intervalos exatos com a <strong>calculadora de idade entre datas</strong>.</li>
             </ul>
           </section>
-        </>
-      )}
-
-      {page === 'retirement' && (
-        <>
-          <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              1. Retirement Age Milestones & State Pension Rules
-            </h3>
-            <p>
-              Planning for retirement requires tracking your exact age down to the month and day. Standard retirement milestones vary globally:
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-              <div class="p-4 bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-lg space-y-1">
-                <h4 class="text-sm font-bold text-[var(--ink-primary)]">India Government Service (Age 60)</h4>
-                <p class="text-xs text-[var(--ink-mute)]">
-                  Central government employees and UPSC officers retire on the last day of the month they reach 60 years of age.
-                </p>
-              </div>
-              <div class="p-4 bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-lg space-y-1">
-                <h4 class="text-sm font-bold text-[var(--ink-primary)]">At Age 73 RMD Calculator</h4>
-                <p class="text-xs text-[var(--ink-mute)]">
-                  Mandatory retirement distribution rules (such as US 401k/IRA RMDs or Indian NPS annuity withdrawals) activate upon reaching age 73.
-                </p>
-              </div>
-            </div>
-          </section>
 
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              2. Career Progress Percentage & Savings Benchmarks
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              4. Privacidade Total e Processamento no Navegador
             </h3>
             <p>
-              By specifying your custom work joining age (e.g. 22 or 25), our retirement calculator computes your exact career completion percentage, helping you align emergency reserves and pension portfolios.
+              Em nosso site <strong>calculadoradeidade.com</strong>, priorizamos a sua segurança. Todo o processo de cálculo de idade é executado 100% no seu próprio dispositivo (client-side). Isso significa que as suas datas nunca são enviadas para servidores nem armazenadas em bancos de dados, garantindo conformidade total com a Lei Geral de Proteção de Dados (LGPD).
             </p>
           </section>
         </>
       )}
 
-      {page === 'dog' && (
+      {page === 'concursos' && (
         <>
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              1. The Science of Dog Years to Human Years Conversion
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              1. A Importância da Data de Corte nos Concursos Públicos
             </h3>
             <p>
-              The popular rule that "1 dog year equals 7 human years" is a myth. According to the American Veterinary Medical Association (AVMA), dogs age much faster during their first two years of life, after which aging rates depend heavily on <strong>breed size</strong> (Small, Medium, Large, Giant).
+              Para concurseiros e candidatos a cargos públicos, entender a <strong>idade limite</strong> é fundamental. Os editais costumam definir datas de corte estritas — seja no ato da inscrição preliminar, seja no momento da posse no cargo público.
+            </p>
+            <p>
+              Nossa <strong>calculadora de idade para concursos</strong> permite simular exatamente a sua idade na data prevista de corte do edital, eliminando dúvidas sobre se você estará dentro da faixa permitida.
             </p>
           </section>
 
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              2. Breed Size Aging & Sleep Requirements
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              2. Regras Gerais de Idade no Serviço Público
             </h3>
-            <p>
-              Larger dogs reach senior status much earlier than smaller dogs. Puppies require 18–20 hours of sleep per day, adult dogs need 12–14 hours, and senior dogs require 14–18 hours of dedicated rest.
-            </p>
+            <ul class="list-disc list-inside space-y-1.5 pl-2 text-xs sm:text-sm">
+              <li><strong>Idade Mínima:</strong> 18 anos completos (exigida na data da posse no cargo).</li>
+              <li><strong>Carreiras Militares e Policiais:</strong> Limites específicos que costumam variar entre 30 e 35 anos na data de inscrição do concurso.</li>
+              <li><strong>Idade Máxima do Serviço Público Civil:</strong> 75 anos de idade (aposentadoria compulsória constitucional).</li>
+            </ul>
           </section>
         </>
       )}
@@ -412,20 +289,26 @@ const schemaJson = {
       {page === 'baby' && (
         <>
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              1. Pediatric Milestone Tracking in Weeks & Months
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              1. Calculadora de Idade Gestacional vs. Idade Cronológica
             </h3>
             <p>
-              During an infant's first year, measuring age in completed weeks and months is crucial for tracking growth charts, vaccination timelines, and motor skill development.
+              A <strong>calculadora de idade gestacional</strong> acompanha o tempo de desenvolvimento embrionário e fetal semana a semana durante a gestação. Já após o nascimento, os pediatras medem a idade da criança em semanas e meses completos para acompanhar curvas de crescimento (peso, estatura e perímetro cefálico) da OMS.
             </p>
           </section>
 
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              2. Premature Birth Gestational Corrected Age Formula
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              2. Como Funciona a Calculadora de Idade Corrigida para Prematuros?
             </h3>
             <p>
-              For babies born prematurely (before 37 weeks of gestation), pediatricians use <strong>corrected age</strong>. If a 16-week-old baby was born 4 weeks early, their corrected age is 12 weeks. Motor milestones should be evaluated based on corrected age until 2 years of age.
+              Bebês que nascem antes das 37 semanas de gestação necessitam da <strong>calculadora de idade corrigida</strong>. A fórmula desconta o período em que o bebê nasceu adiantado em relação ao termo completo de 40 semanas:
+            </p>
+            <div class="p-4 bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-xl font-mono text-xs text-[var(--ink-primary)]">
+              Idade Corrigida = Idade Cronológica - (40 semanas - Semanas de Gestação no Parto)
+            </div>
+            <p>
+              Essa correção é utilizada até os 2 anos de idade para garantir que os marcos motores de sustentação da cabeça, sentar sem apoio e engatinhar sejam avaliados com total justiça ao ritmo biológico do bebê.
             </p>
           </section>
         </>
@@ -434,20 +317,37 @@ const schemaJson = {
       {page === 'datediff' && (
         <>
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              1. Calculating Date Differences & Time Intervals
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              1. Medição Precisa com a Calculadora de Idade Entre Datas
             </h3>
             <p>
-              Whether computing age gaps between family members, event countdowns, or project duration intervals, our Date Difference Calculator accounts for month lengths, leap year days, and exact time of day.
+              Nossa <strong>calculadora de idade entre datas</strong> calcula o intervalo matemático exato entre duas datas distintas. Ela é ideal para calcular tempo de serviço trabalhado, duração de contratos, idade que seus pais tinham quando você nasceu ou a diferença exata de idade entre familiares e amigos.
             </p>
           </section>
+        </>
+      )}
 
+      {page === 'retirement' && (
+        <>
           <section class="space-y-3">
-            <h3 class="text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              2. How Old Was My Parent When I Was Born?
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              1. Planejamento da Idade de Aposentadoria
             </h3>
             <p>
-              To calculate your mother's or father's age when you were born, set their Date of Birth as Date 1 and your Date of Birth as Date 2. The tool computes their exact age in years, months, and days on your birthday.
+              Saber sua idade exata e quantos anos, meses e dias faltam para atingir os 60, 62 ou 65 anos é essencial para programar investimentos, previdência privada e contribuições ao INSS.
+            </p>
+          </section>
+        </>
+      )}
+
+      {page === 'dog' && (
+        <>
+          <section class="space-y-3">
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              1. A Verdade Sobre os Anos de Cachorro
+            </h3>
+            <p>
+              A ciência veterinária moderna comprovou que o envelhecimento dos cães varia fortemente de acordo com o porte físico. Cães de grande porte e gigantes envelhecem mais rápido a partir da fase adulta do que cães de pequeno porte, necessitando de cuidados preventivos adaptados.
             </p>
           </section>
         </>
@@ -456,52 +356,25 @@ const schemaJson = {
     </div>
   </article>
 
-  <!-- Route-Specific Extra Blocks -->
-  {page === 'upsc' && (
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-6 shadow-sm space-y-3">
-        <h3 class="text-lg font-bold text-[var(--ink-primary)] tracking-tight">
-          Category-wise Attempt Limits
-        </h3>
-        <ul class="text-xs text-[var(--ink-body)] space-y-2 list-disc list-inside font-mono-num">
-          <li><strong>General / EWS:</strong> 6 Attempts up to 32 Years</li>
-          <li><strong>OBC (Non-Creamy Layer):</strong> 9 Attempts up to 35 Years</li>
-          <li><strong>SC / ST:</strong> Unlimited Attempts up to 37 Years</li>
-          <li><strong>PwBD (GEN/EWS/OBC):</strong> 9 Attempts up to 42-45 Years</li>
-          <li><strong>PwBD (SC/ST):</strong> Unlimited Attempts up to 47 Years</li>
-        </ul>
-      </div>
-
-      <div class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-6 shadow-sm space-y-3">
-        <h3 class="text-lg font-bold text-[var(--ink-primary)] tracking-tight">
-          Ex-Servicemen & Special Relaxations
-        </h3>
-        <p class="text-xs text-[var(--ink-body)] leading-relaxed">
-          Commissioned Officers including ECOs/SSCOs who have rendered at least 5 years military service receive up to 5 years age relaxation (maximum upper limit capped at 37 years for General). Defence personnel disabled in operations receive +3 years (GEN/OBC) or +8 years (SC/ST).
-        </p>
-      </div>
-    </div>
-  )}
-
-  <!-- FAQ Accordion -->
-  <div class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-8 shadow-sm space-y-6">
+  {/* Seção FAQ Accordion Interativo */}
+  <div class="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xs space-y-6">
     <div class="border-b border-[var(--hairline)] pb-4">
-      <h2 class="text-xl font-bold tracking-tight text-[var(--ink-primary)]">
-        Frequently Asked Questions & Calculator Guidance
+      <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[var(--ink-primary)]">
+        Perguntas Frequentes sobre Cálculo de Idade
       </h2>
-      <p class="text-xs text-[var(--ink-mute)] mt-1">
-        Targeted answers to top search queries and user questions.
+      <p class="text-xs sm:text-sm text-[var(--ink-mute)] mt-1">
+        Respostas diretas para as dúvidas mais comuns sobre cálculo de idade e datas.
       </p>
     </div>
 
-    <div class="space-y-4">
+    <div class="space-y-3 sm:space-y-4">
       {faqItems.map((item) => (
-        <details class="group border border-[var(--hairline)] rounded-lg p-4 transition [&_summary::-webkit-details-marker]:hidden bg-[var(--canvas-inset)]">
-          <summary class="flex items-center justify-between gap-2.5 font-semibold text-sm text-[var(--ink-primary)] cursor-pointer select-none">
-            <span class="capitalize">{item.question}</span>
+        <details class="group border border-[var(--hairline)] rounded-xl p-4 transition bg-[var(--canvas-inset)] hover:border-[#0070f3]/40 [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex items-center justify-between gap-3 font-semibold text-xs sm:text-sm text-[var(--ink-primary)] cursor-pointer select-none">
+            <span>{item.question}</span>
             <span class="text-[var(--ink-mute)] group-open:rotate-180 transition-transform shrink-0">▼</span>
           </summary>
-          <div class="mt-3 text-xs text-[var(--ink-body)] leading-relaxed border-t border-[var(--hairline)] pt-3">
+          <div class="mt-3 text-xs sm:text-sm text-[var(--ink-body)] leading-relaxed border-t border-[var(--hairline)] pt-3">
             {item.answer}
           </div>
         </details>

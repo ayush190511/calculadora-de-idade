@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { calculateDateDifference, formatDateForInput } from '../../lib/date-utils';
+import { calculateDateDifference, formatDateForInput, formatDateHuman } from '../../lib/date-utils';
 import { DateInputField } from '../DateInputField';
 import { Dog, Heart, Moon, Copy, Check, Info } from 'lucide-react';
 
@@ -13,7 +13,6 @@ interface DogAgeModeProps {
 export const DogAgeMode: React.FC<DogAgeModeProps> = ({ title, subtitle }) => {
   const [dob, setDob] = useState<string>('');
   const [dogSize, setDogSize] = useState<DogSize>('medium');
-  const [unit, setUnit] = useState<'lbs' | 'kg'>('lbs');
   const [copied, setCopied] = useState<boolean>(false);
 
   const today = useMemo(() => new Date(), []);
@@ -24,13 +23,13 @@ export const DogAgeMode: React.FC<DogAgeModeProps> = ({ title, subtitle }) => {
     return new Date(y, m - 1, d);
   }, [dob]);
 
-  // Actual Calendar Age of Dog
+  // Idade real de calendário do cão
   const calendarAge = useMemo(() => {
     if (!parsedDob) return null;
     return calculateDateDifference(parsedDob, today);
   }, [parsedDob, today]);
 
-  // Veterinary Human Equivalent Age Formula
+  // Fórmula Veterinária AVMA de Equivalência em Anos Humanos
   const humanAge = useMemo(() => {
     if (!calendarAge) return 0;
     const totalYears = calendarAge.years + calendarAge.months / 12;
@@ -41,10 +40,10 @@ export const DogAgeMode: React.FC<DogAgeModeProps> = ({ title, subtitle }) => {
     if (totalYears <= 2) {
       return Math.round(15 + (totalYears - 1) * 9);
     }
-    // After 2 years: size multiplier
+    // Após 2 anos: multiplicador pelo porte
     const base = 24;
     const remainingYears = totalYears - 2;
-    let multiplier = 5; // default medium
+    let multiplier = 5;
     if (dogSize === 'small') multiplier = 4;
     if (dogSize === 'medium') multiplier = 5;
     if (dogSize === 'large') multiplier = 6;
@@ -53,24 +52,33 @@ export const DogAgeMode: React.FC<DogAgeModeProps> = ({ title, subtitle }) => {
     return Math.round(base + remainingYears * multiplier);
   }, [calendarAge, dogSize]);
 
-  // Life Stage Determination
+  // Fase da Vida
   const lifeStage = useMemo(() => {
     if (!calendarAge) return null;
-    if (calendarAge.years < 1) return { name: 'Puppy Stage', sleep: '18–20 hours/day', tip: 'High calorie puppy food, frequent small meals (3–4 times daily).' };
-    if (calendarAge.years < 3) return { name: 'Young Adult', sleep: '12–14 hours/day', tip: 'High energy exercise, adult maintenance diet.' };
-    if (calendarAge.years < 7) return { name: 'Mature Adult', sleep: '12–14 hours/day', tip: 'Balanced adult diet, regular wellness checkups.' };
-    return { name: 'Senior Dog (7+ Yrs)', sleep: '14–18 hours/day', tip: 'Soft joint care food, gentle exercise, bi-annual vet checks.' };
-  }, [calendarAge]);
+    if (calendarAge.years < 1) return { name: 'Filhote (Puppy)', sleep: '18 a 20 horas/dia', tip: 'Ração de filhote com alta densidade nutricional e refeições frequentes (3 a 4 vezes ao dia).' };
+    if (calendarAge.years < 3) return { name: 'Jovem Adulto', sleep: '12 a 14 horas/dia', tip: 'Muita energia e brincadeiras, dieta de manutenção de adulto e vacinação em dia.' };
+    if (calendarAge.years < (dogSize === 'giant' ? 5 : dogSize === 'large' ? 6 : 8)) {
+      return { name: 'Adulto Pleno', sleep: '12 a 14 horas/dia', tip: 'Exercícios regulares, controle de peso e checkups veterinários anuais.' };
+    }
+    return { name: 'Idoso (Sênior)', sleep: '14 a 18 horas/dia', tip: 'Acompanhamento articular, ração sênior de fácil digestão e consultas semestrais.' };
+  }, [calendarAge, dogSize]);
+
+  const sizeLabels: Record<DogSize, { label: string; desc: string }> = {
+    small: { label: 'Porte Pequeno', desc: 'Até 9 kg (Chihuahua, Poodle, Shih Tzu, etc.)' },
+    medium: { label: 'Porte Médio', desc: '9 a 22 kg (Beagle, Cocker, Bulldog Francês, etc.)' },
+    large: { label: 'Porte Grande', desc: '23 a 40 kg (Labrador, Golden, Pastor Alemão, etc.)' },
+    giant: { label: 'Porte Gigante', desc: 'Mais de 40 kg (São Bernardo, Dogue Alemão, Rottweiler grande)' },
+  };
 
   const handleCopySummary = () => {
-    if (!calendarAge || !lifeStage) return;
-    const text = `🐶 Dog Age Calculator Summary
-📅 Dog Date of Birth: ${dob}
-📏 Breed Size: ${dogSize.toUpperCase()}
-🎂 Actual Calendar Age: ${calendarAge.years} yrs, ${calendarAge.months} mos
-❤️ Human Equivalent Age: ${humanAge} Human Years
-🐾 Life Stage: ${lifeStage.name}
-📍 Calculated via agecalculatorupsc.com/dog-age-calculator`;
+    if (!calendarAge || !lifeStage || !parsedDob) return;
+    const text = `🐶 Resumo da Idade do Cachorro em Anos Humanos:
+📅 Data de Nascimento: ${formatDateHuman(parsedDob)}
+🐕 Porte: ${sizeLabels[dogSize].label}
+⏱️ Idade Real de Calendário: ${calendarAge.years} anos e ${calendarAge.months} meses
+🧑‍🦱 Idade em Anos Humanos: ${humanAge} anos equivalentes
+🐾 Fase da Vida: ${lifeStage.name} (Sono recomendado: ${lifeStage.sleep})
+📍 Calculado via: calculadoradeidade.com/calculadora-idade-cachorro`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -78,81 +86,50 @@ export const DogAgeMode: React.FC<DogAgeModeProps> = ({ title, subtitle }) => {
   };
 
   return (
-    <div className="space-y-3.5 sm:space-y-5">
-      {/* Input Card */}
-      <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 shadow-xs transition-colors">
-        {/* Card Header Title */}
-        <div className="border-b border-[var(--hairline)] pb-3 sm:pb-3.5 mb-3.5 sm:mb-4 text-center">
-          <h1 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-[var(--ink-primary)]">
-            {title || "Dog Age Calculator"}
+    <div className="space-y-4 sm:space-y-6">
+      {/* Entrada */}
+      <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-4 sm:p-6 md:p-8 shadow-xs transition-colors space-y-4 sm:space-y-5">
+        <div className="border-b border-[var(--hairline)] pb-4 text-center">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--canvas-inset)] border border-[var(--hairline)] text-xs font-semibold text-amber-500 mb-2">
+            <Dog className="w-3.5 h-3.5" />
+            <span>Medicina Veterinária e Cuidados Caninos</span>
+          </div>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-[var(--ink-primary)]">
+            {title || "Calculadora de Idade de Cachorro em Anos Humanos"}
           </h1>
-          <p className="text-xs sm:text-sm text-[var(--ink-body)] mt-1 max-w-xl mx-auto leading-relaxed">
-            {subtitle || "Official AVMA veterinary size-adjusted dog years to human years converter & life stage guidelines."}
+          <p className="text-xs sm:text-sm text-[var(--ink-body)] mt-1.5 max-w-xl mx-auto leading-relaxed">
+            {subtitle || "Descubra a idade real do seu cachorro convertida para anos humanos com base no porte e recomendações veterinárias (AVMA)."}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5">
-          {/* DOB */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           <DateInputField
-            label="Dog's Date of Birth"
+            label="Data de Nascimento (ou Adoção) do Cão"
             value={dob}
             max={formatDateForInput(today)}
-            onChange={(val) => {
-              const maxStr = formatDateForInput(today);
-              const clamped = val > maxStr ? maxStr : val;
-              setDob(clamped);
-            }}
+            onChange={setDob}
+            helpText="Insira quando o seu cãozinho nasceu"
           />
 
-          {/* Breed Size Selector */}
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-primary)]">
-                Dog Breed Size <span className="text-[#ee0000]">*</span>
-              </label>
-
-              {/* Unit Toggle Switch */}
-              <div className="inline-flex items-center p-0.5 bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-lg text-[11px] font-mono font-semibold">
+          {/* Porte do Cachorro */}
+          <div className="space-y-2">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
+              Porte do Cão
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {(['small', 'medium', 'large', 'giant'] as DogSize[]).map((sz) => (
                 <button
+                  key={sz}
                   type="button"
-                  onClick={() => setUnit('lbs')}
-                  className={`px-2 py-0.5 rounded transition cursor-pointer select-none ${
-                    unit === 'lbs' ? 'bg-[var(--ink-primary)] text-[var(--canvas-card)] shadow-xs' : 'text-[var(--ink-mute)] hover:text-[var(--ink-primary)]'
+                  onClick={() => setDogSize(sz)}
+                  className={`p-2.5 rounded-xl border text-left transition cursor-pointer select-none ${
+                    dogSize === sz
+                      ? 'bg-amber-500/10 border-amber-500 text-amber-600 dark:text-amber-400 font-bold'
+                      : 'bg-[var(--canvas-inset)] border-[var(--hairline)] text-[var(--ink-body)] hover:bg-[var(--hairline)]'
                   }`}
                 >
-                  lbs
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setUnit('kg')}
-                  className={`px-2 py-0.5 rounded transition cursor-pointer select-none ${
-                    unit === 'kg' ? 'bg-[var(--ink-primary)] text-[var(--canvas-card)] shadow-xs' : 'text-[var(--ink-mute)] hover:text-[var(--ink-primary)]'
-                  }`}
-                >
-                  kg
-                </button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2">
-              {(['small', 'medium', 'large', 'giant'] as DogSize[]).map((size) => (
-                <button
-                  key={size}
-                  type="button"
-                  onClick={() => setDogSize(size)}
-                  className={`p-2 rounded-lg border text-left text-xs font-medium transition-all cursor-pointer shadow-2xs ${
-                    dogSize === size
-                      ? 'bg-[var(--ink-primary)] text-[var(--canvas-card)] border-[var(--ink-primary)] shadow-sm'
-                      : 'bg-[var(--canvas-inset)] text-[var(--ink-body)] border-[var(--hairline)] hover:border-[var(--ink-primary)] hover:bg-[var(--canvas-card)]'
-                  }`}
-                >
-                  <div className="font-bold capitalize text-xs">{size}</div>
-                  <div className="text-[10px] opacity-80 mt-0.5 font-mono">
-                    {size === 'small' ? (unit === 'lbs' ? '< 20 lbs' : '< 9 kg') :
-                     size === 'medium' ? (unit === 'lbs' ? '20–50 lbs' : '9–23 kg') :
-                     size === 'large' ? (unit === 'lbs' ? '50–90 lbs' : '23–41 kg') :
-                     (unit === 'lbs' ? '90+ lbs' : '41+ kg')}
-                  </div>
+                  <span className="text-xs font-bold block">{sizeLabels[sz].label}</span>
+                  <span className="text-[10px] text-[var(--ink-mute)] block mt-0.5">{sizeLabels[sz].desc}</span>
                 </button>
               ))}
             </div>
@@ -160,72 +137,67 @@ export const DogAgeMode: React.FC<DogAgeModeProps> = ({ title, subtitle }) => {
         </div>
       </div>
 
-      {/* Results Display */}
-      {calendarAge && lifeStage ? (
-        <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-5.5 shadow-xs relative transition-colors animate-fade-in-down space-y-3.5 sm:space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 sm:pb-3 border-b border-[var(--hairline)]">
-            <div className="flex items-center gap-2">
-              <Heart className="w-4 h-4 text-[#ee0000]" />
-              <span className="text-xs font-mono uppercase tracking-wider font-bold text-[var(--ink-mute)]">
-                Human Years Equivalent
-              </span>
-            </div>
+      {/* Resultados */}
+      {calendarAge && parsedDob && lifeStage && (
+        <div className="space-y-4 animate-fadeIn">
+          <div className="bg-linear-to-br from-amber-500/10 via-[var(--canvas-card)] to-amber-500/5 border-2 border-amber-500/30 rounded-2xl p-5 sm:p-7 shadow-sm text-center relative">
+            <span className="text-xs font-mono font-bold tracking-wider text-amber-500 uppercase block mb-1">
+              Idade em Anos Humanos
+            </span>
 
-            <button
-              onClick={handleCopySummary}
-              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs font-semibold text-[var(--ink-primary)] bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-md sm:rounded-lg hover:border-[var(--ink-primary)] hover:bg-[var(--canvas-card)] transition-all cursor-pointer shadow-2xs"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-[#0070f3]" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied!' : 'Copy Summary'}</span>
-            </button>
-          </div>
-
-          {/* Primary Human Equivalent Display */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
-            <div className="bg-[var(--canvas-inset)] p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl border border-[var(--hairline)] flex flex-col justify-center items-center text-center shadow-2xs">
-              <span className="text-[10px] sm:text-xs font-mono uppercase font-semibold text-[var(--ink-mute)]">Human Equivalent Age</span>
-              <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0070f3] dark:text-[#38bdf8] font-mono-num mt-0.5 sm:mt-1">
+            <div className="flex items-baseline justify-center gap-2 my-2">
+              <span className="text-4xl sm:text-6xl font-black text-[var(--ink-primary)] font-mono-num">
                 {humanAge}
               </span>
-              <span className="text-xs text-[var(--ink-body)] mt-0.5 font-semibold">Human Years Old</span>
-            </div>
-
-            <div className="bg-[var(--canvas-inset)] p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl border border-[var(--hairline)] flex flex-col justify-center items-center text-center shadow-2xs">
-              <span className="text-[10px] sm:text-xs font-mono uppercase font-semibold text-[var(--ink-mute)]">Actual Calendar Age</span>
-              <span className="text-lg sm:text-xl md:text-2xl font-bold text-[var(--ink-primary)] font-mono-num mt-0.5 sm:mt-1">
-                {calendarAge.years} yrs, {calendarAge.months} mos
+              <span className="text-base sm:text-xl font-bold text-[var(--ink-mute)]">
+                anos humanos
               </span>
-              <span className="text-[11px] text-[var(--ink-mute)] mt-0.5 font-medium">{calendarAge.totalDays.toLocaleString()} Days Lived</span>
+            </div>
+
+            <p className="text-xs sm:text-sm text-[var(--ink-body)] font-semibold">
+              Idade real de calendário: <strong className="text-[var(--ink-primary)]">{calendarAge.years} anos e {calendarAge.months} meses</strong> ({calendarAge.totalDays.toLocaleString('pt-BR')} dias de vida)
+            </p>
+
+            <div className="mt-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--canvas-inset)] border border-[var(--hairline)]">
+              <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+              <span className="text-xs font-bold text-[var(--ink-primary)]">Fase Atual: {lifeStage.name}</span>
+            </div>
+
+            <div className="mt-4 flex justify-center">
+              <button
+                type="button"
+                onClick={handleCopySummary}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--canvas-card)] hover:bg-[var(--canvas-inset)] border border-[var(--hairline)] hover:border-amber-500 text-xs font-semibold text-[var(--ink-primary)] rounded-xl transition shadow-2xs cursor-pointer select-none"
+              >
+                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-amber-500" />}
+                <span>{copied ? 'Copiado!' : 'Copiar Resumo do Cão'}</span>
+              </button>
             </div>
           </div>
 
-          {/* Life Stage & Care Guidance */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3 pt-2.5 border-t border-[var(--hairline)]">
-            <div className="p-3 sm:p-3.5 bg-[var(--canvas-inset)] rounded-lg sm:rounded-xl border border-[var(--hairline)] space-y-1 shadow-2xs">
-              <span className="block text-[10px] text-[var(--ink-mute)] font-mono uppercase font-semibold">Life Stage</span>
-              <span className="text-xs sm:text-sm font-bold text-[var(--ink-primary)] block">{lifeStage.name}</span>
-              <p className="text-xs text-[var(--ink-body)] leading-relaxed">{lifeStage.tip}</p>
-            </div>
-
-            <div className="p-3 sm:p-3.5 bg-[var(--canvas-inset)] rounded-lg sm:rounded-xl border border-[var(--hairline)] space-y-1 shadow-2xs">
-              <div className="flex items-center gap-1.5 text-[10px] text-[var(--ink-mute)] font-mono uppercase font-semibold">
-                <Moon className="w-3.5 h-3.5 text-[#0070f3] dark:text-[#38bdf8]" /> Sleep Requirements
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-4 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 flex items-center justify-center shrink-0">
+                <Moon className="w-5 h-5" />
               </div>
-              <span className="text-xs sm:text-sm font-bold text-[var(--ink-primary)] block">{lifeStage.sleep}</span>
-              <p className="text-xs text-[var(--ink-body)] leading-relaxed">Tailor sleep cycles and nutrition to this stage.</p>
+              <div>
+                <span className="text-xs font-semibold text-[var(--ink-mute)] uppercase">Necessidade de Sono</span>
+                <p className="text-sm font-bold text-[var(--ink-primary)]">{lifeStage.sleep}</p>
+              </div>
+            </div>
+
+            <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-4 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0">
+                <Info className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-xs font-semibold text-[var(--ink-mute)] uppercase">Dica Nutricional</span>
+                <p className="text-xs text-[var(--ink-body)]">{lifeStage.tip}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="p-5 sm:p-6 md:p-7 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl sm:rounded-2xl text-center space-y-1.5 shadow-xs">
-          <Dog className="w-5 h-5 sm:w-6 sm:h-6 mx-auto text-[#0070f3]" />
-          <h3 className="text-sm sm:text-base font-bold text-[var(--ink-primary)]">Ready for Dog Age Calculation</h3>
-          <p className="text-xs text-[var(--ink-mute)] max-w-md mx-auto leading-relaxed">
-            Enter your dog's Date of Birth in the box above to compute human equivalent age and life stage care.
-          </p>
         </div>
       )}
     </div>
   );
 };
-

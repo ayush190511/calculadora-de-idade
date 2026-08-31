@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { calculateAgeBreakdown, calculateDateDifference, formatDateForInput } from '../../lib/date-utils';
+import { calculateAgeBreakdown, formatDateForInput, formatDateHuman } from '../../lib/date-utils';
 import { DateInputField } from '../DateInputField';
-import { Baby, Calendar, Sparkles, Copy, Check, Clock } from 'lucide-react';
+import { Baby, Calendar, Sparkles, Copy, Check, Clock, HeartHandshake } from 'lucide-react';
 
 interface BabyAgeModeProps {
   title?: string;
@@ -12,7 +12,7 @@ export const BabyAgeMode: React.FC<BabyAgeModeProps> = ({ title, subtitle }) => 
   const [dob, setDob] = useState<string>('');
   const [timeStr, setTimeStr] = useState<string>('07:15');
   const [isPremature, setIsPremature] = useState<boolean>(false);
-  const [gestationalWeeks, setGestationalWeeks] = useState<number>(34); // Born at 34 weeks
+  const [gestationalWeeks, setGestationalWeeks] = useState<number>(34); // Nascido com 34 semanas
   const [copied, setCopied] = useState<boolean>(false);
 
   const today = useMemo(() => new Date(), []);
@@ -29,25 +29,26 @@ export const BabyAgeMode: React.FC<BabyAgeModeProps> = ({ title, subtitle }) => 
     return calculateAgeBreakdown(parsedDob, today);
   }, [parsedDob, today]);
 
-  // Gestational Corrected Age (Subtract weeks premature from actual age)
+  // Idade Corrigida Gestacional (Subtrai as semanas de prematuridade da idade cronológica)
   const correctedAgeWeeks = useMemo(() => {
     if (!isPremature || !ageData) return null;
     const prematureWeeks = Math.max(0, 40 - gestationalWeeks);
     const actualWeeks = ageData.totalWeeks;
     const correctedWeeks = Math.max(0, actualWeeks - prematureWeeks);
     const correctedMonths = Math.floor(correctedWeeks / 4.345);
-    return { prematureWeeks, correctedWeeks, correctedMonths };
+    const correctedDays = Math.max(0, ageData.totalDays - prematureWeeks * 7);
+    return { prematureWeeks, correctedWeeks, correctedMonths, correctedDays };
   }, [isPremature, gestationalWeeks, ageData]);
 
   const handleCopySummary = () => {
-    if (!ageData) return;
-    const text = `👶 Baby Age Calculator Summary
-📅 Date of Birth: ${dob} at ${timeStr}
-🍼 Exact Age: ${ageData.months} Months, ${ageData.days} Days (${ageData.years} Yrs)
-📆 Age in Weeks: ${ageData.totalWeeks} Weeks, ${ageData.days % 7} Days
-🔢 Total Days: ${ageData.totalDays.toLocaleString()} Days
-${isPremature && correctedAgeWeeks ? `🏥 Corrected Age (Born at ${gestationalWeeks}wks): ${correctedAgeWeeks.correctedMonths} Months (${correctedAgeWeeks.correctedWeeks} Weeks)` : ''}
-📍 Calculated via agecalculatorupsc.com/baby-age-calculator`;
+    if (!ageData || !parsedDob) return;
+    const text = `👶 Resumo da Idade do Bebê e Gestacional:
+📅 Data de Nascimento: ${dob ? formatDateHuman(parsedDob) : ''} às ${timeStr}
+🍼 Idade Cronológica: ${ageData.months} meses e ${ageData.days} dias (${ageData.years} anos)
+📆 Idade em Semanas: ${ageData.totalWeeks} semanas e ${ageData.days % 7} dias
+🔢 Total de Dias: ${ageData.totalDays.toLocaleString('pt-BR')} dias
+${isPremature && correctedAgeWeeks ? `🏥 Idade Corrigida (Nascido com ${gestationalWeeks} semanas): ${correctedAgeWeeks.correctedMonths} meses (${correctedAgeWeeks.correctedWeeks} semanas)` : ''}
+📍 Calculado via: calculadoradeidade.com/calculadora-idade-gestacional`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -55,24 +56,27 @@ ${isPremature && correctedAgeWeeks ? `🏥 Corrected Age (Born at ${gestationalW
   };
 
   return (
-    <div className="space-y-3.5 sm:space-y-5">
-      {/* Input Card */}
-      <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 shadow-xs transition-colors">
-        {/* Card Header Title */}
-        <div className="border-b border-[var(--hairline)] pb-3 sm:pb-3.5 mb-3.5 sm:mb-4 text-center">
-          <h1 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-[var(--ink-primary)]">
-            {title || "Baby Age Calculator"}
+    <div className="space-y-4 sm:space-y-6">
+      {/* Bloco de Entrada */}
+      <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-2xl p-4 sm:p-6 md:p-8 shadow-xs transition-colors space-y-4 sm:space-y-5">
+        <div className="border-b border-[var(--hairline)] pb-4 text-center">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--canvas-inset)] border border-[var(--hairline)] text-xs font-semibold text-rose-500 mb-2">
+            <Baby className="w-3.5 h-3.5" />
+            <span>Pediatria e Desenvolvimento Infantil</span>
+          </div>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-[var(--ink-primary)]">
+            {title || "Calculadora de Idade Gestacional e Idade do Bebê"}
           </h1>
-          <p className="text-xs sm:text-sm text-[var(--ink-body)] mt-1 max-w-xl mx-auto leading-relaxed">
-            {subtitle || "Calculate exact baby age in weeks, months & days with gestational corrected age for premature births."}
+          <p className="text-xs sm:text-sm text-[var(--ink-body)] mt-1.5 max-w-xl mx-auto leading-relaxed">
+            {subtitle || "Calcule a idade exata do bebê em semanas, meses e dias, com cálculo de idade corrigida para bebês prematuros."}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5">
-          {/* DOB & Time */}
-          <div className="space-y-1.5 sm:space-y-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Data de Nascimento do Bebê */}
+          <div className="space-y-2">
             <DateInputField
-              label="Baby's Date of Birth"
+              label="Data de Nascimento do Bebê"
               value={dob}
               max={formatDateForInput(today)}
               onChange={(val) => {
@@ -80,150 +84,139 @@ ${isPremature && correctedAgeWeeks ? `🏥 Corrected Age (Born at ${gestationalW
                 const clamped = val > maxStr ? maxStr : val;
                 setDob(clamped);
               }}
+              helpText="Insira o dia em que o bebê nasceu"
             />
-            <div className="flex items-center gap-2 pt-0.5">
-              <span className="text-xs font-mono font-semibold text-[var(--ink-mute)]">Birth Time:</span>
+            <div className="flex items-center gap-2 pt-1">
+              <span className="text-xs font-mono text-[var(--ink-mute)]">Horário do Parto:</span>
               <input
                 type="time"
                 value={timeStr}
                 onChange={(e) => setTimeStr(e.target.value)}
-                className="h-8.5 sm:h-9 px-2.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-lg text-xs font-mono font-bold text-[var(--ink-primary)] focus:outline-none focus:ring-2 focus:ring-[#0070f3]/40"
+                className="h-9 px-2.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-lg text-xs font-mono font-bold text-[var(--ink-primary)] focus:outline-none focus:ring-2 focus:ring-rose-500/40"
               />
             </div>
           </div>
 
-          {/* Premature Birth Adjustment Toggle */}
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-primary)]">
-              Premature Birth Adjustment (Optional)
+          {/* Ajuste para Bebês Prematuros (Idade Corrigida) */}
+          <div className="space-y-2 p-3.5 bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-xl">
+            <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--ink-primary)] cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={isPremature}
+                onChange={(e) => setIsPremature(e.target.checked)}
+                className="rounded border-[var(--hairline)] text-rose-500 focus:ring-rose-500"
+              />
+              <span>Bebê Prematuro? (Calcular Idade Corrigida)</span>
             </label>
-            <div className="flex flex-wrap items-center gap-2 min-h-[38px] sm:min-h-[44px]">
-              <button
-                type="button"
-                onClick={() => setIsPremature(!isPremature)}
-                className={`h-9 sm:h-10 px-3 text-xs font-semibold rounded-lg border transition-all cursor-pointer select-none flex items-center justify-center gap-1.5 shadow-2xs ${
-                  isPremature
-                    ? 'bg-[var(--ink-primary)] text-[var(--canvas-card)] border-[var(--ink-primary)] shadow-sm'
-                    : 'bg-[var(--canvas-inset)] text-[var(--ink-body)] border-[var(--hairline)] hover:border-[var(--ink-primary)] hover:bg-[var(--canvas-card)]'
-                }`}
-              >
-                {isPremature ? 'Premature Adjusted ✓' : '+ Add Gestational Weeks'}
-              </button>
 
-              {isPremature && (
-                <div className="flex items-center gap-2 animate-fade-in-down">
-                  <select
-                    value={gestationalWeeks}
-                    onChange={(e) => setGestationalWeeks(Number(e.target.value))}
-                    className="h-9 sm:h-10 px-2.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-lg text-xs font-mono font-bold text-[var(--ink-primary)] cursor-pointer shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#0070f3]/40"
-                  >
-                    {Array.from({ length: 16 }, (_, i) => 24 + i).map((w) => (
-                      <option key={w} value={w}>Born at {w} Weeks</option>
-                    ))}
-                  </select>
+            {isPremature && (
+              <div className="space-y-2 pt-2 animate-fadeIn">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--ink-body)]">Semanas de Gestação no Parto:</span>
+                  <span className="text-xs font-mono font-bold text-rose-500">{gestationalWeeks} semanas</span>
                 </div>
-              )}
-            </div>
+                <input
+                  type="range"
+                  min={24}
+                  max={36}
+                  value={gestationalWeeks}
+                  onChange={(e) => setGestationalWeeks(Number(e.target.value))}
+                  className="w-full accent-rose-500 cursor-pointer"
+                />
+                <p className="text-[10px] text-[var(--ink-mute)]">
+                  Parto a termo é considerado em 40 semanas. Prematuridade calculada: {40 - gestationalWeeks} semanas antes do tempo.
+                </p>
+              </div>
+            )}
+            {!isPremature && (
+              <p className="text-[11px] text-[var(--ink-mute)]">
+                Marque esta opção se o bebê nasceu antes de 37 semanas para avaliar marcos motores pela idade corrigida.
+              </p>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Main Results Display */}
-      {ageData ? (
-        <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-5.5 shadow-xs relative transition-colors animate-fade-in-down space-y-3.5 sm:space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 sm:pb-3 border-b border-[var(--hairline)]">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#0070f3]" />
-              <span className="text-xs font-mono uppercase tracking-wider font-bold text-[var(--ink-mute)]">
-                Exact Age Breakdown
-              </span>
-            </div>
+      {/* Resultados do Bebê */}
+      {ageData && parsedDob && (
+        <div className="space-y-4 animate-fadeIn">
+          {/* Card Principal */}
+          <div className="bg-linear-to-br from-rose-500/10 via-[var(--canvas-card)] to-rose-500/5 border-2 border-rose-500/30 rounded-2xl p-5 sm:p-7 shadow-sm text-center relative">
+            <span className="text-xs font-mono font-bold tracking-wider text-rose-500 uppercase block mb-1">
+              Idade Cronológica do Bebê
+            </span>
 
-            <button
-              onClick={handleCopySummary}
-              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs font-semibold text-[var(--ink-primary)] bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-md sm:rounded-lg hover:border-[var(--ink-primary)] hover:bg-[var(--canvas-card)] transition-all cursor-pointer shadow-2xs"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-[#0070f3]" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied!' : 'Copy Summary'}</span>
-            </button>
-          </div>
-
-          {/* Primary Milestone Display (Weeks & Months) */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
-            <div className="bg-[var(--canvas-inset)] p-2.5 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl border border-[var(--hairline)] min-w-0 shadow-2xs">
-              <span className="block text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-extrabold text-[var(--ink-primary)] font-mono-num tracking-tight truncate">
-                {ageData.months}
-              </span>
-              <span className="text-[10px] sm:text-xs uppercase font-mono font-bold text-[var(--ink-mute)] block mt-0.5 sm:mt-1">
-                Months ({ageData.days}d)
-              </span>
-            </div>
-
-            <div className="bg-[var(--canvas-inset)] p-2.5 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl border border-[var(--hairline)] min-w-0 shadow-2xs">
-              <span className="block text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-extrabold text-[#0070f3] dark:text-[#38bdf8] font-mono-num tracking-tight truncate">
-                {ageData.totalWeeks}
-              </span>
-              <span className="text-[10px] sm:text-xs uppercase font-mono font-bold text-[var(--ink-mute)] block mt-0.5 sm:mt-1">
-                Total Weeks
-              </span>
-            </div>
-
-            <div className="bg-[var(--canvas-inset)] p-2.5 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl border border-[var(--hairline)] min-w-0 shadow-2xs">
-              <span className="block text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-extrabold text-[var(--ink-primary)] font-mono-num tracking-tight truncate">
-                {ageData.totalDays.toLocaleString()}
-              </span>
-              <span className="text-[10px] sm:text-xs uppercase font-mono font-bold text-[var(--ink-mute)] block mt-0.5 sm:mt-1">
-                Total Days
-              </span>
-            </div>
-          </div>
-
-          {/* Corrected Age Box (If Premature) */}
-          {isPremature && correctedAgeWeeks && (
-            <div className="p-3 sm:p-4 bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-lg sm:rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs animate-fade-in-down shadow-2xs">
-              <div>
-                <span className="font-bold text-[var(--ink-primary)] text-xs sm:text-sm">Pediatric Corrected Age (Born at {gestationalWeeks} Weeks):</span>
-                <p className="text-[11px] text-[var(--ink-mute)] mt-0.5">Adjusts for {correctedAgeWeeks.prematureWeeks} weeks early arrival for milestone evaluation.</p>
+            <div className="flex flex-wrap items-baseline justify-center gap-2 sm:gap-4 my-2">
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[var(--ink-primary)] font-mono-num">
+                  {ageData.months}
+                </span>
+                <span className="text-sm sm:text-base font-semibold text-[var(--ink-mute)]">
+                  {ageData.months === 1 ? 'mês' : 'meses'}
+                </span>
               </div>
-              <div className="font-mono text-xs sm:text-sm font-bold text-[#0070f3] dark:text-[#38bdf8] bg-[var(--canvas-card)] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg border border-[var(--hairline)] shrink-0 self-start sm:self-auto shadow-xs">
-                {correctedAgeWeeks.correctedMonths} Months ({correctedAgeWeeks.correctedWeeks} Wks)
+
+              <span className="text-xl sm:text-3xl font-light text-[var(--hairline-strong)]">e</span>
+
+              <div className="flex items-baseline gap-1">
+                <span className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-[var(--ink-primary)] font-mono-num">
+                  {ageData.days}
+                </span>
+                <span className="text-sm sm:text-base font-semibold text-[var(--ink-mute)]">
+                  {ageData.days === 1 ? 'dia' : 'dias'}
+                </span>
               </div>
             </div>
-          )}
 
-          {/* Breakdown Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 pt-2.5 border-t border-[var(--hairline)] text-xs">
-            <div className="p-2 sm:p-2.5 md:p-3 bg-[var(--canvas-inset)] rounded-lg border border-[var(--hairline)] shadow-2xs">
-              <span className="block text-[10px] text-[var(--ink-mute)] font-mono uppercase font-semibold">Years Old</span>
-              <span className="text-xs sm:text-sm md:text-base font-bold text-[var(--ink-primary)] font-mono-num block mt-0.5">{ageData.years} Years</span>
-            </div>
+            <p className="text-xs sm:text-sm font-semibold text-[var(--ink-body)] mt-2">
+              Equivalente a <span className="text-rose-500 font-bold">{ageData.totalWeeks} semanas</span> e {ageData.days % 7} dias de vida ({ageData.totalDays.toLocaleString('pt-BR')} dias totais)
+            </p>
 
-            <div className="p-2 sm:p-2.5 md:p-3 bg-[var(--canvas-inset)] rounded-lg border border-[var(--hairline)] shadow-2xs">
-              <span className="block text-[10px] text-[var(--ink-mute)] font-mono uppercase font-semibold">Total Hours</span>
-              <span className="text-xs sm:text-sm md:text-base font-bold text-[var(--ink-primary)] font-mono-num block mt-0.5">{ageData.totalHours.toLocaleString()}</span>
-            </div>
-
-            <div className="p-2 sm:p-2.5 md:p-3 bg-[var(--canvas-inset)] rounded-lg border border-[var(--hairline)] shadow-2xs">
-              <span className="block text-[10px] text-[var(--ink-mute)] font-mono uppercase font-semibold">Next Birthday</span>
-              <span className="text-xs sm:text-sm md:text-base font-bold text-[#0070f3] dark:text-[#38bdf8] font-mono-num block mt-0.5">{ageData.nextBirthdayDays} Days</span>
-            </div>
-
-            <div className="p-2 sm:p-2.5 md:p-3 bg-[var(--canvas-card)] border border-[#0070f3]/40 dark:border-[#38bdf8]/40 rounded-lg flex items-center justify-between shadow-2xs">
-              <div>
-                <span className="block text-[10px] text-[var(--ink-mute)] font-mono uppercase font-semibold">Stage</span>
-                <span className="text-xs font-bold text-[var(--ink-primary)] block mt-0.5">Pediatric Growth</span>
+            {/* Idade Corrigida para Prematuros */}
+            {isPremature && correctedAgeWeeks && (
+              <div className="mt-4 p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl text-center max-w-lg mx-auto">
+                <span className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wide block">
+                  🏥 Idade Corrigida Pediátrica:
+                </span>
+                <p className="text-base sm:text-lg font-black text-[var(--ink-primary)] mt-1">
+                  {correctedAgeWeeks.correctedMonths} meses ({correctedAgeWeeks.correctedWeeks} semanas de desenvolvimento)
+                </p>
+                <p className="text-[11px] text-[var(--ink-mute)] mt-1">
+                  Use a idade corrigida para avaliar marcos de sentar, engatinhar e introdução alimentar até os 2 anos.
+                </p>
               </div>
-              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#f5a623]" />
+            )}
+
+            <div className="mt-4 flex justify-center">
+              <button
+                type="button"
+                onClick={handleCopySummary}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--canvas-card)] hover:bg-[var(--canvas-inset)] border border-[var(--hairline)] hover:border-rose-500 text-xs font-semibold text-[var(--ink-primary)] rounded-xl transition shadow-2xs cursor-pointer select-none"
+              >
+                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-rose-500" />}
+                <span>{copied ? 'Copiado!' : 'Copiar Resumo do Bebê'}</span>
+              </button>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="p-5 sm:p-6 md:p-7 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl sm:rounded-2xl text-center space-y-1.5 shadow-xs">
-          <Baby className="w-5 h-5 sm:w-6 sm:h-6 mx-auto text-[#0070f3]" />
-          <h3 className="text-sm sm:text-base font-bold text-[var(--ink-primary)]">Ready for Baby Age Calculation</h3>
-          <p className="text-xs text-[var(--ink-mute)] max-w-md mx-auto leading-relaxed">
-            Enter your baby's Date of Birth in the box above to compute exact age in weeks, months, and developmental milestones.
-          </p>
+
+          {/* Dicas de Desenvolvimento */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-4 text-center">
+              <span className="text-[11px] font-medium text-[var(--ink-mute)] uppercase">Mesversário</span>
+              <p className="text-sm font-bold text-[var(--ink-primary)] mt-1">Dia {parsedDob.getDate()} de cada mês</p>
+              <span className="text-[10px] text-[var(--ink-mute)]">comemore os meses</span>
+            </div>
+            <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-4 text-center">
+              <span className="text-[11px] font-medium text-[var(--ink-mute)] uppercase">Total em Horas</span>
+              <p className="text-sm font-bold text-[var(--ink-primary)] font-mono-num mt-1">{ageData.totalHours.toLocaleString('pt-BR')} horas</p>
+              <span className="text-[10px] text-[var(--ink-mute)]">tempo de vida</span>
+            </div>
+            <div className="bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl p-4 text-center">
+              <span className="text-[11px] font-medium text-[var(--ink-mute)] uppercase">1º Aninho</span>
+              <p className="text-sm font-bold text-[var(--ink-primary)] mt-1">{ageData.nextBirthdayDays} dias</p>
+              <span className="text-[10px] text-[var(--ink-mute)]">contagem para 1 ano</span>
+            </div>
+          </div>
         </div>
       )}
     </div>

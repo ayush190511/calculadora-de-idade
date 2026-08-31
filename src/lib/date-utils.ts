@@ -1,8 +1,8 @@
 import type { AgeBreakdown, DateDiffResult } from './types';
 
 /**
- * Calculates exact difference in Years, Months, and Days between two dates.
- * Handles month boundaries and leap years correctly.
+ * Calcula a diferença exata em Anos, Meses e Dias entre duas datas.
+ * Lida corretamente com os limites dos meses e anos bissextos.
  */
 export function calculateExactYMD(startDate: Date, endDate: Date): { years: number; months: number; days: number } {
   if (startDate > endDate) {
@@ -17,7 +17,7 @@ export function calculateExactYMD(startDate: Date, endDate: Date): { years: numb
 
   if (days < 0) {
     months -= 1;
-    // Get last day of the previous month relative to endDate
+    // Pega o último dia do mês anterior relativo à endDate
     const prevMonthLastDay = new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
     days += prevMonthLastDay;
   }
@@ -31,7 +31,7 @@ export function calculateExactYMD(startDate: Date, endDate: Date): { years: numb
 }
 
 /**
- * Calculates comprehensive Age Breakdown as of today (or target date)
+ * Calcula o detalhamento completo da Idade até a data atual (ou data alvo)
  */
 export function calculateAgeBreakdown(dob: Date, targetDate: Date = new Date()): AgeBreakdown {
   const ymd = calculateExactYMD(dob, targetDate);
@@ -41,7 +41,7 @@ export function calculateAgeBreakdown(dob: Date, targetDate: Date = new Date()):
   const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
   const totalWeeks = Math.floor(totalDays / 7);
 
-  // Next Birthday Calculation
+  // Cálculo do Próximo Aniversário
   const currentYear = targetDate.getFullYear();
   let nextBday = new Date(currentYear, dob.getMonth(), dob.getDate());
   
@@ -53,7 +53,7 @@ export function calculateAgeBreakdown(dob: Date, targetDate: Date = new Date()):
   const nextBirthdayDays = Math.ceil(nextBdayDiffMs / (1000 * 60 * 60 * 24));
 
   const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
-  const nextBirthdayDateStr = nextBday.toLocaleDateString('en-IN', options);
+  const nextBirthdayDateStr = nextBday.toLocaleDateString('pt-BR', options);
 
   return {
     years: ymd.years,
@@ -68,7 +68,7 @@ export function calculateAgeBreakdown(dob: Date, targetDate: Date = new Date()):
 }
 
 /**
- * Calculates difference between two arbitrary dates (with optional times)
+ * Calcula a diferença entre duas datas arbitrárias (com horário opcional)
  */
 export function calculateDateDifference(from: Date, to: Date): DateDiffResult {
   const isPast = from <= to;
@@ -96,7 +96,7 @@ export function calculateDateDifference(from: Date, to: Date): DateDiffResult {
 }
 
 /**
- * Format a Date to YYYY-MM-DD for input fields
+ * Formata um objeto Date para YYYY-MM-DD para campos de formulário HTML
  */
 export function formatDateForInput(date: Date): string {
   const yyyy = date.getFullYear();
@@ -106,18 +106,12 @@ export function formatDateForInput(date: Date): string {
 }
 
 /**
- * Format a Date to human readable string (e.g. 1st August 2026)
+ * Formata um objeto Date para formato amigável em português (ex: 15 de agosto de 2026)
  */
 export function formatDateHuman(date: Date): string {
   const day = date.getDate();
-  const month = date.toLocaleString('en-US', { month: 'long' });
+  const month = date.toLocaleString('pt-BR', { month: 'long' });
   const year = date.getFullYear();
 
-  const getOrdinalSuffix = (n: number) => {
-    const s = ['th', 'st', 'nd', 'rd'];
-    const v = n % 100;
-    return s[(v - 20) % 10] || s[v] || s[0];
-  };
-
-  return `${day}${getOrdinalSuffix(day)} ${month} ${year}`;
+  return `${day} de ${month} de ${year}`;
 }

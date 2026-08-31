@@ -1,13 +1,13 @@
-export type Category = 'GEN' | 'EWS' | 'OBC' | 'SC' | 'ST';
+export type Category = 'GEN' | 'COTAS' | 'PCD' | 'MILITAR';
 
-export interface RelaxationOptions {
-  pwbd: boolean; // Person with Benchmark Disabilities (+10 yrs)
-  exServicemen: boolean; // Ex-Servicemen / ECO / SSCO (+5 yrs, max age capped at 37)
-  defenceOps: boolean; // Defence personnel disabled in operations (+3 yrs for GEN/OBC, +8 SC/ST)
-  jkDomicile: boolean; // J&K Domicile (1980-1981 to 1989-1999) (+2 yrs)
+export interface ConcursoOptions {
+  pcd: boolean; // Pessoa com Deficiência (reserva de vagas / adaptação)
+  cotasRaciais: boolean; // Cotas para negros/indígenas
+  servicoMilitar: boolean; // Idade diferenciada ou tempo de serviço militar
+  doadorMedula: boolean; // Isenções e condições especiais
 }
 
-export interface UPSCEligibilityResult {
+export interface ConcursoEligibilityResult {
   status: 'eligible' | 'overage' | 'underage';
   ageOnCutoff: {
     years: number;
@@ -18,13 +18,11 @@ export interface UPSCEligibilityResult {
   cutoffDate: Date;
   minAge: number;
   maxAgeAllowed: number;
-  attemptsAllowed: number | 'Unlimited';
-  attemptsRemaining: number | 'Unlimited';
-  yearsRemaining: number; // exam cycles left before overage
+  yearsRemaining: number;
   explanation: string;
   dobBounds: {
-    minDobStr: string; // e.g. 2nd August 1994
-    maxDobStr: string; // e.g. 1st August 2005
+    minDobStr: string;
+    maxDobStr: string;
   };
   relaxationsApplied: string[];
 }
@@ -49,18 +47,4 @@ export interface DateDiffResult {
   totalMinutes: number;
   totalSeconds: number;
   isPast: boolean;
-}
-
-export interface ExamRules {
-  id: string;
-  name: string;
-  fullName: string;
-  cutoffMonth: number; // 0-indexed, 7 = August
-  cutoffDay: number; // 1
-  minAge: number;
-  baseMaxAge: Record<Category, number>;
-  baseAttempts: Record<Category, number | 'Unlimited'>;
-  pwbdMaxAge: Record<Category, number>;
-  pwbdAttempts: Record<Category, number | 'Unlimited'>;
-  exServicemenMaxAgeCap?: number;
 }

@@ -6,48 +6,48 @@ import SEOSchema from '../components/SEOSchema.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const title = "Date Difference Calculator — Calculate Days, Months & Years Between Dates";
-const description = "Calculate exact time difference between two dates in years, months, days, hours, and seconds. Great for age gaps, event intervals, and milestone tracking.";
-const canonicalUrl = "https://allagecalculators.com/date-difference-calculator";
+const title = "Calculadora de Idade Entre Datas — Diferença Exata Entre Duas Datas";
+const description = "Calculadora de idade entre datas online grátis. Calcule a diferença exata entre duas datas em anos, meses, dias, semanas, horas, minutos e segundos.";
+const canonicalUrl = "https://calculadoradeidade.com/calculadora-idade-entre-datas";
 ---
 
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- Dedicated Date Difference Meta Tags -->
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta 
       name="keywords" 
-      content="age calculator on date, age calculator on today, chronological age calculator, age calculator, age calculator by date of birth, online age calculator, free online age calculator" 
+      content="calculadora de idade entre datas, diferenca entre datas, calcular dias entre duas datas, diferenca de idade, calculadora intervalo de datas, tempo entre datas" 
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
 
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="AllAgeCalculators (allagecalculators.com)" />
+    <meta property="og:site_name" content="Calculadora de Idade" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://allagecalculators.com/og-image.png" />
-
-    <!-- Twitter Card -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://allagecalculators.com/og-image.png" />
+    <meta property="og:image" content="https://calculadoradeidade.com/og-image.png" />
 
     <!-- JSON-LD Structured Data -->
     <SEOSchema page="datediff" title={title} description={description} canonicalUrl={canonicalUrl} />
 
-    <!-- Theme Script -->
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('theme');
@@ -69,12 +69,10 @@ const canonicalUrl = "https://allagecalculators.com/date-difference-calculator";
       <Header />
 
       <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16 space-y-6 sm:space-y-8">
-        <!-- Direct Date Difference Calculator Component -->
-        <section id="datediff-tool">
+        <section id="calculator">
           <DateDiffMode client:load />
         </section>
 
-        <!-- SEO Content & FAQ -->
         <SEOContent page="datediff" />
       </main>
     </div>

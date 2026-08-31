@@ -6,12 +6,12 @@ import SEOSchema from '../components/SEOSchema.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const title = "Online Age Calculator — Free Chronological Age Calculator by Date of Birth";
-const description = "Free Online Age Calculator by date of birth. Calculate your exact chronological age in years, months, days & seconds today. Includes UPSC age calculator of India, retirement age calculator, dog age calculator, baby age calculator, and date gap tools.";
-const canonicalUrl = "https://allagecalculators.com/";
+const title = "Calculadora de Idade Online — Calcular Idade Exata por Data de Nascimento";
+const description = "Calculadora de idade online grátis por data de nascimento. Descubra quantos anos você tem em anos, meses, dias, horas e segundos ao vivo. Ferramenta precisa para calcular idade cronológica, gestacional, aposentadoria e diferença entre datas.";
+const canonicalUrl = "https://calculadoradeidade.com/";
 ---
 
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -24,26 +24,36 @@ const canonicalUrl = "https://allagecalculators.com/";
     <meta name="description" content={description} />
     <meta 
       name="keywords" 
-      content="age calculator, chronological age calculator, age calculator by date of birth, age calculator of india, age calculator of child, age calculator of baby, dog age calculator, age calculator on today, age calculator of upsc, age calculator on date, online age calculator, free online age calculator, dog age, dog age calculator by breed, dog age in human years, pedigree dog age calculator, dog age calculator months, new dog age calculator, senior dog age, dog age to human age, dog age test, dog age 11, child age calculator, retirement age calculator, social security retirement age calculator, full retirement age calculator, child age, upsc age limit" 
+      content="calculadora de idade, quantos anos eu tenho, google quantos anos eu tenho, minha idade, calcular idade, calculadora idade, idade, calculo de idade, calculadora de idade gestacional, calculadora de idade entre datas, calculadora de idade corrigida, calculadora de idade atual, calculadora de idade e meses, calcular data de nascimento, anos meses e dias" 
     />
-    <meta name="author" content="AllAgeCalculators" />
+    <meta name="author" content="Calculadora de Idade" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang Tags para Português (Brasil, Portugal, Angola, Moçambique e Lusofonia) -->
+    <link rel="alternate" hreflang="pt-BR" href="https://calculadoradeidade.com/" />
+    <link rel="alternate" hreflang="pt-PT" href="https://calculadoradeidade.com/" />
+    <link rel="alternate" hreflang="pt-AO" href="https://calculadoradeidade.com/" />
+    <link rel="alternate" hreflang="pt-MZ" href="https://calculadoradeidade.com/" />
+    <link rel="alternate" hreflang="pt" href="https://calculadoradeidade.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://calculadoradeidade.com/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="AllAgeCalculators (allagecalculators.com)" />
+    <meta property="og:site_name" content="Calculadora de Idade (calculadoradeidade.com)" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://allagecalculators.com/og-image.png" />
+    <meta property="og:image" content="https://calculadoradeidade.com/og-image.png" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="pt_PT" />
 
     <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalUrl} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://allagecalculators.com/og-image.png" />
+    <meta property="twitter:image" content="https://calculadoradeidade.com/og-image.png" />
 
     <!-- JSON-LD Structured Data -->
     <SEOSchema page="home" title={title} description={description} canonicalUrl={canonicalUrl} />
@@ -70,12 +80,12 @@ const canonicalUrl = "https://allagecalculators.com/";
       <Header />
 
       <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16 space-y-6 sm:space-y-8">
-        <!-- Focused Home Age Calculator Component -->
+        <!-- Calculadora Principal de Idade -->
         <section id="calculator">
           <NormalAgeMode client:load />
         </section>
 
-        <!-- SEO Below the Fold Content & Guide + FAQ Section -->
+        <!-- Seção SEO e FAQ Rico -->
         <SEOContent page="home" />
       </main>
     </div>
