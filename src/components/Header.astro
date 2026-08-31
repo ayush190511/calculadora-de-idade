@@ -53,7 +53,7 @@ const currentPath = Astro.url.pathname;
           Aposentadoria
         </a>
 
-        {/* Dropdown Outras Calculadoras com Animação Suave */}
+        {/* Dropdown Outras Calculadoras */}
         <div class="relative group">
           <button 
             type="button"
@@ -70,7 +70,6 @@ const currentPath = Astro.url.pathname;
             </svg>
           </button>
 
-          {/* Wrapper com padding superior que atua como hover bridge e transição fluida */}
           <div class="absolute left-0 top-full pt-1.5 opacity-0 invisible scale-95 -translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:scale-100 group-hover:translate-y-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover:pointer-events-auto">
             <div class="w-56 p-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-xl">
               <a 
@@ -100,7 +99,7 @@ const currentPath = Astro.url.pathname;
         {/* Separador Vertical */}
         <div class="h-4 w-px bg-[var(--hairline-strong)] mx-1 shrink-0 opacity-60"></div>
 
-        {/* Dropdown Páginas Institucionais com Animação Suave */}
+        {/* Dropdown Páginas Institucionais */}
         <div class="relative group">
           <button 
             type="button"
@@ -170,7 +169,7 @@ const currentPath = Astro.url.pathname;
           </svg>
         </button>
 
-        {/* Menu Mobile Hamburger Animado para Cruz (X) */}
+        {/* Menu Mobile Hamburger com 3 barras de largura idêntica */}
         <button
           id="mobile-menu-btn"
           type="button"
@@ -178,10 +177,10 @@ const currentPath = Astro.url.pathname;
           aria-expanded="false"
           class="lg:hidden relative w-10 h-10 rounded-xl text-[var(--ink-mute)] hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)] border border-[var(--hairline)] transition-colors flex items-center justify-center cursor-pointer select-none"
         >
-          <div class="w-4.5 h-3.5 relative flex flex-col justify-between items-center pointer-events-none">
-            <span id="h-bar-1" class="w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center"></span>
-            <span id="h-bar-2" class="w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center"></span>
-            <span id="h-bar-3" class="w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center"></span>
+          <div class="w-5 h-3.5 relative flex flex-col justify-between items-center pointer-events-none">
+            <span id="h-bar-1" class="w-5 h-[2px] bg-current rounded-full transition-all duration-300 origin-center block"></span>
+            <span id="h-bar-2" class="w-5 h-[2px] bg-current rounded-full transition-all duration-300 origin-center block"></span>
+            <span id="h-bar-3" class="w-5 h-[2px] bg-current rounded-full transition-all duration-300 origin-center block"></span>
           </div>
         </button>
       </div>
