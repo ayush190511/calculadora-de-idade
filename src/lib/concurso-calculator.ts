@@ -54,11 +54,15 @@ export function calculateConcursoEligibility({
   const maxDob = new Date(cutoffDate);
   maxDob.setFullYear(maxDob.getFullYear() - minAge);
 
+  const totalDays = Math.max(0, Math.floor((cutoffDate.getTime() - dob.getTime()) / (1000 * 60 * 60 * 24)));
   const yearsRemaining = Math.max(0, effectiveMaxAge - currentAgeYears);
 
   return {
     status,
-    ageOnCutoff: ymd,
+    ageOnCutoff: {
+      ...ymd,
+      totalDays,
+    },
     cutoffDateStr: formatDateHuman(cutoffDate),
     cutoffDate,
     minAge,
