@@ -264,7 +264,7 @@ export const ConcursoMode: React.FC<ConcursoModeProps> = ({
               </div>
               <div className="flex justify-between">
                 <span>Total de Dias Vividos na Data de Corte:</span>
-                <span className="font-semibold text-[var(--ink-primary)]">{result.ageOnCutoff.totalDays.toLocaleString('pt-BR')} dias</span>
+                <span className="font-semibold text-[var(--ink-primary)]">{(result.ageOnCutoff.totalDays ?? 0).toLocaleString('pt-BR')} dias</span>
               </div>
               <div className="flex justify-between">
                 <span>Idade Máxima Permitida (com benefícios):</span>

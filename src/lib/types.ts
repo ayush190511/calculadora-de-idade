@@ -13,6 +13,7 @@ export interface ConcursoEligibilityResult {
     years: number;
     months: number;
     days: number;
+    totalDays?: number;
   };
   cutoffDateStr: string;
   cutoffDate: Date;
