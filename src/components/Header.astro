@@ -3,22 +3,23 @@ import { OfflineBanner } from './OfflineBanner';
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="w-full bg-[var(--canvas-card)]/90 backdrop-blur-md border-b border-[var(--hairline)] sticky top-0 z-50 transition-colors">
+<header class="w-full bg-[var(--canvas-card)]/95 backdrop-blur-md border-b border-[var(--hairline)] sticky top-0 z-50 transition-colors">
   <OfflineBanner client:load />
   <div class="max-w-5xl mx-auto px-4 sm:px-6">
-    <div class="h-16 flex items-center justify-between">
+    <div class="h-16 flex items-center justify-between gap-4">
+      
       {/* Brand Logo & Name */}
-      <a href="/" class="flex items-center gap-2 sm:gap-2.5 group shrink-0">
+      <a href="/" class="flex items-center gap-2.5 group shrink-0 select-none">
         <img 
           src="/favicon.png" 
           alt="Calculadora de Idade Logo" 
-          class="h-7 sm:h-9 w-auto object-contain rounded-lg shadow-2xs transition group-hover:scale-105" 
+          class="h-8 w-auto object-contain rounded-lg shadow-2xs transition-transform duration-200 group-hover:scale-105" 
         />
         <div class="flex flex-col">
-          <span class="text-xs sm:text-sm font-bold tracking-tight text-[var(--ink-primary)] leading-tight">
+          <span class="text-sm font-black tracking-tight text-[var(--ink-primary)] leading-tight whitespace-nowrap">
             Calculadora de Idade
           </span>
-          <span class="text-[9px] sm:text-[10px] font-mono text-[var(--ink-mute)]">calculadoradeidade.com</span>
+          <span class="text-[10px] font-mono text-[var(--ink-mute)] leading-none">calculadoradeidade.com</span>
         </div>
       </a>
 
@@ -26,88 +27,120 @@ const currentPath = Astro.url.pathname;
       <nav class="hidden lg:flex items-center gap-1 text-xs font-medium text-[var(--ink-body)]">
         <a 
           href="/" 
-          class={`px-2.5 py-1.5 rounded-lg transition ${currentPath === '/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-semibold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)]'}`}
+          class={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
         >
           Início
         </a>
+
         <a 
           href="/calculadora-idade-gestacional" 
-          class={`px-2.5 py-1.5 rounded-lg transition ${currentPath === '/calculadora-idade-gestacional' || currentPath === '/calculadora-idade-gestacional/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-semibold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)]'}`}
+          class={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-gestacional' || currentPath === '/calculadora-idade-gestacional/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
         >
-          Idade Gestacional & Bebê 👶
+          Gestacional & Bebê
         </a>
+
         <a 
           href="/calculadora-idade-entre-datas" 
-          class={`px-2.5 py-1.5 rounded-lg transition ${currentPath === '/calculadora-idade-entre-datas' || currentPath === '/calculadora-idade-entre-datas/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-semibold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)]'}`}
+          class={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-entre-datas' || currentPath === '/calculadora-idade-entre-datas/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
         >
-          Entre Datas ⏳
+          Entre Datas
         </a>
+
         <a 
           href="/calculadora-idade-aposentadoria" 
-          class={`px-2.5 py-1.5 rounded-lg transition ${currentPath === '/calculadora-idade-aposentadoria' || currentPath === '/calculadora-idade-aposentadoria/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-semibold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)]'}`}
+          class={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-aposentadoria' || currentPath === '/calculadora-idade-aposentadoria/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
         >
-          Aposentadoria 🏖️
-        </a>
-        <a 
-          href="/calculadora-idade-cachorro" 
-          class={`px-2.5 py-1.5 rounded-lg transition ${currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-semibold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)]'}`}
-        >
-          Idade Canina 🐶
-        </a>
-        <a 
-          href="/calculadora-idade-concursos" 
-          class={`px-2.5 py-1.5 rounded-lg transition ${currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-semibold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)]'}`}
-        >
-          Concursos & Editais 📋
+          Aposentadoria
         </a>
 
-        {/* Separador Vertical */}
-        <div class="h-4 w-px bg-[var(--hairline-strong)] mx-1.5 shrink-0 opacity-60"></div>
-
-        {/* Menu Dropdown Mais */}
+        {/* Dropdown Outras Calculadoras */}
         <div class="relative group">
           <button 
             type="button"
-            class={`px-2.5 py-1.5 rounded-lg transition flex items-center gap-1 cursor-pointer select-none ${
-              currentPath === '/sobre' || currentPath === '/sobre/' ||
-              currentPath === '/contato' || currentPath === '/contato/' ||
-              currentPath === '/politica-de-privacidade' || currentPath === '/politica-de-privacidade/' ||
-              currentPath === '/termos-de-uso' || currentPath === '/termos-de-uso/'
-                ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-semibold border border-[var(--hairline)]'
-                : 'hover:text-[var(--ink-primary)] text-[var(--ink-mute)]'
+            class={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer select-none whitespace-nowrap ${
+              currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ||
+              currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/'
+                ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]'
+                : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'
             }`}
           >
-            <span>Mais</span>
-            <svg class="w-3 h-3 text-[var(--ink-mute)] group-hover:text-[var(--ink-primary)] transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>Mais Ferramentas</span>
+            <svg class="w-3.5 h-3.5 text-[var(--ink-mute)] group-hover:text-[var(--ink-primary)] transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
 
-          <div class="absolute right-0 top-full mt-1.5 w-48 py-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+          <div class="absolute left-0 top-full mt-1 w-56 p-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <a 
+              href="/calculadora-idade-cachorro" 
+              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
+            >
+              <span class="text-base">🐶</span>
+              <div class="flex flex-col">
+                <span class="font-semibold text-[var(--ink-primary)]">Idade Canina</span>
+                <span class="text-[10px] text-[var(--ink-mute)]">Anos de cachorro em humanos</span>
+              </div>
+            </a>
+            <a 
+              href="/calculadora-idade-concursos" 
+              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
+            >
+              <span class="text-base">📋</span>
+              <div class="flex flex-col">
+                <span class="font-semibold text-[var(--ink-primary)]">Concursos & Editais</span>
+                <span class="text-[10px] text-[var(--ink-mute)]">Data de corte e limite de idade</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        {/* Separador Vertical */}
+        <div class="h-4 w-px bg-[var(--hairline-strong)] mx-1 shrink-0 opacity-60"></div>
+
+        {/* Dropdown Páginas Institucionais */}
+        <div class="relative group">
+          <button 
+            type="button"
+            class={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer select-none whitespace-nowrap ${
+              currentPath === '/sobre' || currentPath === '/sobre/' ||
+              currentPath === '/contato' || currentPath === '/contato/' ||
+              currentPath === '/politica-de-privacidade' || currentPath === '/politica-de-privacidade/' ||
+              currentPath === '/termos-de-uso' || currentPath === '/termos-de-uso/'
+                ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]'
+                : 'hover:text-[var(--ink-primary)] text-[var(--ink-mute)]'
+            }`}
+          >
+            <span>Institucional</span>
+            <svg class="w-3.5 h-3.5 text-[var(--ink-mute)] group-hover:text-[var(--ink-primary)] transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+
+          <div class="absolute right-0 top-full mt-1 w-48 p-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
             <a 
               href="/sobre" 
-              class={`flex items-center gap-2.5 px-3 py-2 text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/sobre' || currentPath === '/sobre/' ? 'font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}
+              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/sobre' || currentPath === '/sobre/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
             >
               <span class="w-1.5 h-1.5 rounded-full bg-[#0070f3]"></span>
               Sobre Nós
             </a>
             <a 
               href="/contato" 
-              class={`flex items-center gap-2.5 px-3 py-2 text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/contato' || currentPath === '/contato/' ? 'font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}
+              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/contato' || currentPath === '/contato/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
             >
               <span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
               Contato
             </a>
             <a 
               href="/politica-de-privacidade" 
-              class={`flex items-center gap-2.5 px-3 py-2 text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/politica-de-privacidade' || currentPath === '/politica-de-privacidade/' ? 'font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}
+              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/politica-de-privacidade' || currentPath === '/politica-de-privacidade/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
             >
               <span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"></span>
               Privacidade (LGPD)
             </a>
             <a 
               href="/termos-de-uso" 
-              class={`flex items-center gap-2.5 px-3 py-2 text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/termos-de-uso' || currentPath === '/termos-de-uso/' ? 'font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}
+              class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/termos-de-uso' || currentPath === '/termos-de-uso/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
             >
               <span class="w-1.5 h-1.5 rounded-full bg-[#6366f1]"></span>
               Termos de Uso
@@ -116,8 +149,8 @@ const currentPath = Astro.url.pathname;
         </div>
       </nav>
 
-      {/* Botões de Ação e Tema */}
-      <div class="flex items-center gap-2">
+      {/* Botões de Ação Direita */}
+      <div class="flex items-center gap-2 shrink-0">
         <button
           id="theme-toggle-btn"
           type="button"
@@ -148,30 +181,30 @@ const currentPath = Astro.url.pathname;
   </div>
 
   {/* Gaveta Mobile */}
-  <div id="mobile-menu-drawer" class="hidden lg:hidden border-t border-[var(--hairline)] bg-[var(--canvas-card)] px-4 py-4 space-y-2">
-    <a href="/" class={`block px-3 py-2 rounded-lg text-sm font-medium ${currentPath === '/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}>
-      Início
+  <div id="mobile-menu-drawer" class="hidden lg:hidden border-t border-[var(--hairline)] bg-[var(--canvas-card)] px-4 py-4 space-y-1.5 shadow-lg animate-fadeIn">
+    <a href="/" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+      🎂 Início (Calculadora Principal)
     </a>
-    <a href="/calculadora-idade-gestacional" class={`block px-3 py-2 rounded-lg text-sm font-medium ${currentPath === '/calculadora-idade-gestacional' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}>
-      Idade Gestacional & Bebê 👶
+    <a href="/calculadora-idade-gestacional" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-gestacional' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+      👶 Idade Gestacional & Bebê
     </a>
-    <a href="/calculadora-idade-entre-datas" class={`block px-3 py-2 rounded-lg text-sm font-medium ${currentPath === '/calculadora-idade-entre-datas' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}>
-      Idade Entre Datas ⏳
+    <a href="/calculadora-idade-entre-datas" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-entre-datas' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+      ⏳ Idade Entre Datas
     </a>
-    <a href="/calculadora-idade-aposentadoria" class={`block px-3 py-2 rounded-lg text-sm font-medium ${currentPath === '/calculadora-idade-aposentadoria' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}>
-      Aposentadoria 🏖️
+    <a href="/calculadora-idade-aposentadoria" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-aposentadoria' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+      🏖️ Aposentadoria (INSS)
     </a>
-    <a href="/calculadora-idade-cachorro" class={`block px-3 py-2 rounded-lg text-sm font-medium ${currentPath === '/calculadora-idade-cachorro' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}>
-      Idade Canina 🐶
+    <a href="/calculadora-idade-cachorro" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-cachorro' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+      🐶 Idade Canina em Anos Humanos
     </a>
-    <a href="/calculadora-idade-concursos" class={`block px-3 py-2 rounded-lg text-sm font-medium ${currentPath === '/calculadora-idade-concursos' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)]' : 'text-[var(--ink-body)]'}`}>
-      Concursos & Editais 📋
+    <a href="/calculadora-idade-concursos" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-concursos' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+      📋 Concursos Públicos & Editais
     </a>
-    <div class="border-t border-[var(--hairline)] pt-2 grid grid-cols-2 gap-2 text-xs">
-      <a href="/sobre" class="p-2 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]">Sobre Nós</a>
-      <a href="/contato" class="p-2 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]">Contato</a>
-      <a href="/politica-de-privacidade" class="p-2 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]">Privacidade</a>
-      <a href="/termos-de-uso" class="p-2 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]">Termos de Uso</a>
+    <div class="border-t border-[var(--hairline)] pt-3 mt-2 grid grid-cols-2 gap-2 text-xs">
+      <a href="/sobre" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Sobre Nós</a>
+      <a href="/contato" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Contato</a>
+      <a href="/politica-de-privacidade" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Privacidade</a>
+      <a href="/termos-de-uso" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Termos de Uso</a>
     </div>
   </div>
 </header>
