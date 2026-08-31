@@ -6,9 +6,12 @@ interface DateInputFieldProps {
   value: string; // YYYY-MM-DD
   onChange: (val: string) => void;
   max?: string; // YYYY-MM-DD
+  maxDate?: string; // Alias for max
   min?: string; // YYYY-MM-DD
+  minDate?: string; // Alias for min
   required?: boolean;
   helpText?: string;
+  helperText?: string; // Alias for helpText
   className?: string;
 }
 
@@ -159,11 +162,17 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
   value,
   onChange,
   max,
+  maxDate,
   min,
+  minDate,
   required = true,
   helpText,
+  helperText,
   className = '',
 }) => {
+  const effectiveMax = max || maxDate;
+  const effectiveMin = min || minDate;
+  const effectiveHelp = helpText || helperText;
   const hiddenDateInputRef = useRef<HTMLInputElement>(null);
   const [displayText, setDisplayText] = useState<string>(() => isoToDisplay(value));
   const [inputError, setInputError] = useState<string | null>(null);
@@ -188,7 +197,7 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
       return;
     }
 
-    const { formatted, isoDate, error } = sanitizeAndFormatDateInput(rawVal, displayText, max, min);
+    const { formatted, isoDate, error } = sanitizeAndFormatDateInput(rawVal, displayText, effectiveMax, effectiveMin);
     setDisplayText(formatted);
     setInputError(error);
 
@@ -271,8 +280,8 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
           tabIndex={-1}
           aria-hidden="true"
           value={value || ''}
-          max={max}
-          min={min}
+          max={effectiveMax}
+          min={effectiveMin}
           onChange={(e) => {
             const chosen = e.target.value;
             if (chosen) {
@@ -288,8 +297,8 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
       {/* Error Feedback */}
       {inputError ? (
         <p className="text-[11px] font-medium text-red-500 animate-fadeIn">{inputError}</p>
-      ) : helpText ? (
-        <p className="text-[11px] text-[var(--ink-mute)]">{helpText}</p>
+      ) : effectiveHelp ? (
+        <p className="text-[11px] text-[var(--ink-mute)]">{effectiveHelp}</p>
       ) : null}
     </div>
   );
