@@ -62,13 +62,13 @@ ${isPremature && correctedAgeWeeks ? `🏥 Idade Corrigida (Nascido com ${gestat
         <div className="border-b border-[var(--hairline)] pb-4 text-center">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--canvas-inset)] border border-[var(--hairline)] text-xs font-semibold text-rose-500 mb-2">
             <Baby className="w-3.5 h-3.5" />
-            <span>Pediatria e Desenvolvimento Infantil</span>
+            <span>Calculadora Idade Gestacional & Bebê</span>
           </div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-[var(--ink-primary)]">
-            {title || "Calculadora de Idade Gestacional e Idade do Bebê"}
+            {title || "Calculadora Idade Gestacional e Idade do Bebê"}
           </h1>
           <p className="text-xs sm:text-sm text-[var(--ink-body)] mt-1.5 max-w-xl mx-auto leading-relaxed">
-            {subtitle || "Calcule a idade exata do bebê em semanas, meses e dias, com cálculo de idade corrigida para bebês prematuros."}
+            {subtitle || "A melhor calculadora idade para acompanhar semanas e meses do bebê, com calculadora idade corrigida prematuro para bebês nascidos antes do tempo."}
           </p>
         </div>
 
@@ -97,7 +97,7 @@ ${isPremature && correctedAgeWeeks ? `🏥 Idade Corrigida (Nascido com ${gestat
             </div>
           </div>
 
-          {/* Ajuste para Bebês Prematuros (Idade Corrigida) */}
+          {/* Ajuste para Bebês Prematuros (Calculadora Idade Corrigida Prematuro) */}
           <div className="space-y-2 p-3.5 bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-xl">
             <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--ink-primary)] cursor-pointer select-none">
               <input
@@ -106,7 +106,7 @@ ${isPremature && correctedAgeWeeks ? `🏥 Idade Corrigida (Nascido com ${gestat
                 onChange={(e) => setIsPremature(e.target.checked)}
                 className="rounded border-[var(--hairline)] text-rose-500 focus:ring-rose-500"
               />
-              <span>Bebê Prematuro? (Calcular Idade Corrigida)</span>
+              <span>Bebê Prematuro? (Usar Calculadora Idade Corrigida Prematuro)</span>
             </label>
 
             {isPremature && (
@@ -172,17 +172,17 @@ ${isPremature && correctedAgeWeeks ? `🏥 Idade Corrigida (Nascido com ${gestat
               Equivalente a <span className="text-rose-500 font-bold">{ageData.totalWeeks} semanas</span> e {ageData.days % 7} dias de vida ({ageData.totalDays.toLocaleString('pt-BR')} dias totais)
             </p>
 
-            {/* Idade Corrigida para Prematuros */}
+            {/* Calculadora Idade Corrigida para Prematuros */}
             {isPremature && correctedAgeWeeks && (
               <div className="mt-4 p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl text-center max-w-lg mx-auto">
                 <span className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wide block">
-                  🏥 Idade Corrigida Pediátrica:
+                  🏥 Calculadora Idade Corrigida Prematuro:
                 </span>
                 <p className="text-base sm:text-lg font-black text-[var(--ink-primary)] mt-1">
                   {correctedAgeWeeks.correctedMonths} meses ({correctedAgeWeeks.correctedWeeks} semanas de desenvolvimento)
                 </p>
                 <p className="text-[11px] text-[var(--ink-mute)] mt-1">
-                  Use a idade corrigida para avaliar marcos de sentar, engatinhar e introdução alimentar até os 2 anos.
+                  Use a calculadora idade corrigida prematuro para avaliar marcos de sentar, engatinhar e introdução alimentar até os 2 anos.
                 </p>
               </div>
             )}

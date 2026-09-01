@@ -67,8 +67,11 @@ O projeto foi estruturado semântica e tecnicamente para rankear no topo do Goog
   - `calculadora idade`
   - `idade`
   - `calculo de idade`
+  - `calculadora idade gestacional`
   - `calculadora de idade gestacional`
   - `calculadora de idade entre datas`
+  - `calculadora idade corrigida`
+  - `calculadora idade corrigida prematuro`
   - `calculadora de idade corrigida`
   - `calculadora de idade atual`
   - `calculadora de idade e meses`

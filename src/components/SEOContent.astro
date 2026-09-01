@@ -70,24 +70,24 @@ const dogFaqs = [
 // 4. FAQs da Idade Gestacional e Bebê
 const babyFaqs = [
   {
-    question: "O que é calculadora de idade gestacional e como funciona?",
-    answer: "A calculadora de idade gestacional calcula o tempo de gravidez em semanas e dias a partir da Data da Última Menstruação (DUM) ou da ultrassonografia de primeiro trimestre. Ela determina a idade fetal e a Data Provável do Parto (DPP).",
-    answerHtml: "<p>A <strong>calculadora de idade gestacional</strong> calcula o tempo de gravidez em semanas e dias a partir da DUM ou ecografia, permitindo acompanhar o desenvolvimento fetal semana a semana.</p>"
+    question: "Como funciona a calculadora idade gestacional e como calcular semanas de gravidez?",
+    answer: "A calculadora idade gestacional calcula o tempo de gestação e a idade do recém-nascido em semanas e dias a partir da Data da Última Menstruação (DUM) ou da ultrassonografia de primeiro trimestre. Ela determina a idade fetal e a Data Provável do Parto (DPP).",
+    answerHtml: "<p>A <strong>calculadora idade gestacional</strong> (ou calculadora de idade gestacional) calcula o tempo de gravidez em semanas e dias a partir da DUM ou ecografia, permitindo acompanhar o desenvolvimento fetal e as semanas de vida do bebê com máxima exatidão.</p>"
   },
   {
-    question: "O que é calculadora de idade corrigida para bebês prematuros?",
-    answer: "A calculadora de idade corrigida desconta as semanas que faltaram para o bebê completar 40 semanas de gestação da sua idade cronológica. Por exemplo: se um bebê tem 16 semanas de vida cronológica mas nasceu 4 semanas prematuro (com 36 semanas), sua idade corrigida é de 12 semanas (3 meses de desenvolvimento).",
-    answerHtml: "<p>A <strong>calculadora de idade corrigida</strong> desconta as semanas de prematuridade em relação a 40 semanas. Pediatras usam a idade corrigida para avaliar marcos motores, sono e introdução alimentar até os 2 anos.</p>"
+    question: "Como funciona a calculadora idade corrigida prematuro para bebês prematuros?",
+    answer: "A calculadora idade corrigida prematuro desconta as semanas que faltaram para o bebê completar 40 semanas de gestação da sua idade cronológica. Por exemplo: se um bebê tem 16 semanas de vida cronológica mas nasceu 4 semanas prematuro (com 36 semanas), a calculadora idade corrigida prematuro aponta 12 semanas (3 meses de desenvolvimento biológico).",
+    answerHtml: "<p>A <strong>calculadora idade corrigida prematuro</strong> desconta as semanas de prematuridade em relação ao marco de 40 semanas. Pediatras usam a calculadora idade corrigida prematuro para avaliar marcos motores, sono e introdução alimentar até os 2 anos de vida.</p>"
   },
   {
-    question: "Como calcular a idade do bebê em semanas e meses?",
-    answer: "Insira a data e o horário do nascimento do recém-nascido na nossa ferramenta. Ela decompõe a idade do bebê em meses e dias completos, total de semanas vividas, dias totais e a data exata do próximo mesversário.",
-    answerHtml: "<p>Nossa calculadora decompõe a idade do bebê em meses, dias, semanas completas e indica os dias até o próximo mesversário e o 1º aninho.</p>"
+    question: "Por que usar nossa calculadora idade para o acompanhamento do bebê?",
+    answer: "Nossa calculadora idade para bebês decompõe o tempo de vida em dias, semanas e meses exatos, integrando a calculadora idade gestacional e a calculadora idade corrigida em uma única ferramenta sem anúncios invasivos.",
+    answerHtml: "<p>Nossa <strong>calculadora idade</strong> online decompõe a idade do bebê em meses, dias, semanas completas e calcula automaticamente a idade corrigida para prematuros, tudo com privacidade total e em tempo real.</p>"
   },
   {
     question: "Por que a idade corrigida é fundamental para o acompanhamento pediátrico?",
-    answer: "Avaliar o bebê prematuro pela idade cronológica pode gerar preocupações desnecessárias com atrasos no rolar, sentar ou falar. A idade corrigida respeita o tempo biológico de maturação neurológica da criança.",
-    answerHtml: "<p>A idade corrigida respeita o tempo biológico de maturação do cérebro e dos órgãos do bebê prematuro, evitando diagnósticos equivocados de atraso motor.</p>"
+    answer: "Avaliar o bebê prematuro pela idade cronológica pode gerar preocupações desnecessárias com atrasos no rolar, sentar ou falar. A calculadora idade corrigida respeita o tempo biológico de maturação neurológica da criança.",
+    answerHtml: "<p>A <strong>calculadora idade corrigida</strong> respeita o tempo biológico de maturação do cérebro e dos órgãos do bebê prematuro, evitando diagnósticos equivocados de atraso motor.</p>"
   }
 ];
 
@@ -290,25 +290,34 @@ const schemaJson = {
         <>
           <section class="space-y-3">
             <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              1. Calculadora de Idade Gestacional vs. Idade Cronológica
+              1. Calculadora Idade Gestacional vs. Idade Cronológica
             </h3>
             <p>
-              A <strong>calculadora de idade gestacional</strong> acompanha o tempo de desenvolvimento embrionário e fetal semana a semana durante a gestação. Já após o nascimento, os pediatras medem a idade da criança em semanas e meses completos para acompanhar curvas de crescimento (peso, estatura e perímetro cefálico) da OMS.
+              A <strong>calculadora idade gestacional</strong> acompanha o tempo de desenvolvimento embrionário e fetal semana a semana durante a gestação. Já após o nascimento, os pediatras medem a idade da criança em semanas e meses completos para acompanhar curvas de crescimento (peso, estatura e perímetro cefálico) da OMS. Utilizar uma <strong>calculadora idade</strong> especializada garante que nenhum dia ou semana seja calculado incorretamente.
             </p>
           </section>
 
           <section class="space-y-3">
             <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
-              2. Como Funciona a Calculadora de Idade Corrigida para Prematuros?
+              2. Como Funciona a Calculadora Idade Corrigida Prematuro?
             </h3>
             <p>
-              Bebês que nascem antes das 37 semanas de gestação necessitam da <strong>calculadora de idade corrigida</strong>. A fórmula desconta o período em que o bebê nasceu adiantado em relação ao termo completo de 40 semanas:
+              Bebês que nascem antes das 37 semanas de gestação necessitam da <strong>calculadora idade corrigida prematuro</strong>. A fórmula desconta o período em que o bebê nasceu adiantado em relação ao termo completo de 40 semanas:
             </p>
             <div class="p-4 bg-[var(--canvas-inset)] border border-[var(--hairline)] rounded-xl font-mono text-xs text-[var(--ink-primary)]">
               Idade Corrigida = Idade Cronológica - (40 semanas - Semanas de Gestação no Parto)
             </div>
             <p>
-              Essa correção é utilizada até os 2 anos de idade para garantir que os marcos motores de sustentação da cabeça, sentar sem apoio e engatinhar sejam avaliados com total justiça ao ritmo biológico do bebê.
+              Essa <strong>calculadora idade corrigida prematuro</strong> é utilizada até os 2 anos de idade para garantir que os marcos motores de sustentação da cabeça, sentar sem apoio e engatinhar sejam avaliados com total justiça ao ritmo biológico do bebê.
+            </p>
+          </section>
+
+          <section class="space-y-3">
+            <h3 class="text-lg sm:text-xl font-bold text-[var(--ink-primary)] tracking-tight">
+              3. Por Que Usar Nossa Calculadora Idade Pediátrica?
+            </h3>
+            <p>
+              Nossa <strong>calculadora idade</strong> infantil foi concebida para oferecer precisão sem complicação. Seja combinando a <strong>calculadora idade gestacional</strong> para prever datas ou a <strong>calculadora idade corrigida prematuro</strong> para bebês que nasceram antes do tempo, você tem em mãos uma ferramenta gratuita, rápida e 100% segura.
             </p>
           </section>
         </>
