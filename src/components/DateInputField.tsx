@@ -237,12 +237,9 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
   return (
     <div className={`space-y-1.5 ${className}`}>
       {/* Label */}
-      <div className="flex items-center justify-between">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
-          {label} {required && <span className="text-[#ee0000]">*</span>}
-        </label>
-        <span className="text-[10px] sm:text-xs font-mono text-[var(--ink-mute)]">DD/MM/AAAA</span>
-      </div>
+      <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--ink-body)]">
+        {label} {required && <span className="text-[#ee0000]">*</span>}
+      </label>
 
       {/* Date Entry Box */}
       <div className="relative flex items-center">
@@ -256,7 +253,7 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
           onBlur={handleBlur}
           placeholder="DD/MM/AAAA (ex: 15/08/1998)"
           aria-label={label}
-          className={`w-full h-10 sm:h-11 pl-3.5 pr-11 bg-[var(--canvas-card)] border rounded-xl font-mono text-sm sm:text-base font-bold text-[var(--ink-primary)] placeholder:text-[var(--ink-mute)]/50 focus:outline-none focus:ring-2 transition ${
+          className={`w-full h-10 sm:h-11 pl-3.5 pr-11 bg-[var(--canvas-card)] border rounded-xl font-mono text-sm sm:text-base font-bold text-[var(--ink-primary)] placeholder:text-xs sm:placeholder:text-[13px] placeholder:font-normal placeholder:tracking-normal placeholder:text-[var(--ink-mute)]/60 focus:outline-none focus:ring-2 transition ${
             inputError
               ? 'border-red-500/80 focus:ring-red-500/30'
               : 'border-[var(--hairline)] focus:ring-[#0070f3]/40 focus:border-[#0070f3]'

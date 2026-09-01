@@ -111,7 +111,7 @@ export const ConcursoMode: React.FC<ConcursoModeProps> = ({
             onChange={handleDobInputChange}
             max={formatDateForInput(new Date())}
             required
-            helpText="Formato: DD/MM/AAAA"
+            helpText="Digite dia, mês e ano ou selecione pelo calendário"
           />
 
           <DateInputField
