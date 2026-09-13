@@ -27,74 +27,45 @@ const currentPath = Astro.url.pathname;
       <nav class="hidden lg:flex items-center gap-1 text-xs font-medium text-[var(--ink-body)]">
         <a 
           href="/" 
-          class={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
+          class={`px-2.5 xl:px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
         >
           Início
         </a>
 
         <a 
-          href="/calculadora-idade-gestacional" 
-          class={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-gestacional' || currentPath === '/calculadora-idade-gestacional/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
-        >
-          Gestacional & Bebê
-        </a>
-
-        <a 
           href="/calculadora-idade-entre-datas" 
-          class={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-entre-datas' || currentPath === '/calculadora-idade-entre-datas/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
+          class={`px-2.5 xl:px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-entre-datas' || currentPath === '/calculadora-idade-entre-datas/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
         >
           Entre Datas
         </a>
 
         <a 
+          href="/calculadora-idade-gestacional" 
+          class={`px-2.5 xl:px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-gestacional' || currentPath === '/calculadora-idade-gestacional/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
+        >
+          Gestacional & Bebê
+        </a>
+
+        <a 
+          href="/calculadora-idade-cachorro" 
+          class={`px-2.5 xl:px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
+        >
+          Idade Canina
+        </a>
+
+        <a 
+          href="/calculadora-idade-concursos" 
+          class={`px-2.5 xl:px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
+        >
+          Concursos & Editais
+        </a>
+
+        <a 
           href="/calculadora-idade-aposentadoria" 
-          class={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-aposentadoria' || currentPath === '/calculadora-idade-aposentadoria/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
+          class={`px-2.5 xl:px-3 py-1.5 rounded-lg transition whitespace-nowrap ${currentPath === '/calculadora-idade-aposentadoria' || currentPath === '/calculadora-idade-aposentadoria/' ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]' : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'}`}
         >
           Aposentadoria
         </a>
-
-        {/* Dropdown Outras Calculadoras */}
-        <div class="relative group">
-          <button 
-            type="button"
-            class={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer select-none whitespace-nowrap ${
-              currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ||
-              currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/'
-                ? 'bg-[var(--canvas-inset)] text-[var(--ink-primary)] font-bold border border-[var(--hairline)]'
-                : 'hover:text-[var(--ink-primary)] hover:bg-[var(--canvas-inset)]/60'
-            }`}
-          >
-            <span>Mais Ferramentas</span>
-            <svg class="w-3.5 h-3.5 text-[var(--ink-mute)] group-hover:text-[var(--ink-primary)] transition-transform duration-300 ease-out group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </button>
-
-          <div class="absolute left-0 top-full pt-1.5 opacity-0 invisible scale-95 -translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:scale-100 group-hover:translate-y-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover:pointer-events-auto">
-            <div class="w-56 p-1.5 bg-[var(--canvas-card)] border border-[var(--hairline)] rounded-xl shadow-xl">
-              <a 
-                href="/calculadora-idade-cachorro" 
-                class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
-              >
-                <span class="text-base">🐶</span>
-                <div class="flex flex-col">
-                  <span class="font-semibold text-[var(--ink-primary)]">Idade Canina</span>
-                  <span class="text-[10px] text-[var(--ink-mute)]">Anos de cachorro em humanos</span>
-                </div>
-              </a>
-              <a 
-                href="/calculadora-idade-concursos" 
-                class={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition hover:bg-[var(--canvas-inset)] ${currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/' ? 'font-bold text-[var(--ink-primary)] bg-[var(--canvas-inset)]' : 'text-[var(--ink-body)]'}`}
-              >
-                <span class="text-base">📋</span>
-                <div class="flex flex-col">
-                  <span class="font-semibold text-[var(--ink-primary)]">Concursos & Editais</span>
-                  <span class="text-[10px] text-[var(--ink-mute)]">Data de corte e limite de idade</span>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
 
         {/* Separador Vertical */}
         <div class="h-4 w-px bg-[var(--hairline-strong)] mx-1 shrink-0 opacity-60"></div>
@@ -197,20 +168,20 @@ const currentPath = Astro.url.pathname;
         <a href="/" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
           🎂 Início (Calculadora Principal)
         </a>
-        <a href="/calculadora-idade-gestacional" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-gestacional' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
-          👶 Idade Gestacional & Bebê
-        </a>
-        <a href="/calculadora-idade-entre-datas" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-entre-datas' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+        <a href="/calculadora-idade-entre-datas" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-entre-datas' || currentPath === '/calculadora-idade-entre-datas/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
           ⏳ Idade Entre Datas
         </a>
-        <a href="/calculadora-idade-aposentadoria" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-aposentadoria' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
-          🏖️ Aposentadoria (INSS)
+        <a href="/calculadora-idade-gestacional" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-gestacional' || currentPath === '/calculadora-idade-gestacional/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+          👶 Idade Gestacional & Bebê
         </a>
-        <a href="/calculadora-idade-cachorro" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-cachorro' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+        <a href="/calculadora-idade-cachorro" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-cachorro' || currentPath === '/calculadora-idade-cachorro/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
           🐶 Idade Canina em Anos Humanos
         </a>
-        <a href="/calculadora-idade-concursos" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-concursos' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+        <a href="/calculadora-idade-concursos" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-concursos' || currentPath === '/calculadora-idade-concursos/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
           📋 Concursos Públicos & Editais
+        </a>
+        <a href="/calculadora-idade-aposentadoria" class={`block px-3.5 py-2.5 rounded-xl text-xs font-semibold ${currentPath === '/calculadora-idade-aposentadoria' || currentPath === '/calculadora-idade-aposentadoria/' ? 'bg-[var(--canvas-inset)] font-bold text-[var(--ink-primary)] border border-[var(--hairline)]' : 'text-[var(--ink-body)] hover:bg-[var(--canvas-inset)]'}`}>
+          🏖️ Aposentadoria (INSS)
         </a>
         <div class="border-t border-[var(--hairline)] pt-3 mt-2 grid grid-cols-2 gap-2 text-xs">
           <a href="/sobre" class="p-2.5 rounded-lg text-[var(--ink-body)] hover:bg-[var(--canvas-inset)] text-center font-medium">Sobre Nós</a>
