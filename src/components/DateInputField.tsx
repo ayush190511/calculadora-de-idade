@@ -13,6 +13,7 @@ interface DateInputFieldProps {
   helpText?: string;
   helperText?: string; // Alias for helpText
   className?: string;
+  placeholder?: string;
 }
 
 function isLeapYear(year: number): boolean {
@@ -169,6 +170,7 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
   helpText,
   helperText,
   className = '',
+  placeholder = "DD/MM/AAAA (ex: 15/08/1998)",
 }) => {
   const effectiveMax = max || maxDate;
   const effectiveMin = min || minDate;
@@ -251,7 +253,7 @@ export const DateInputField: React.FC<DateInputFieldProps> = ({
           value={displayText}
           onChange={handleInputChange}
           onBlur={handleBlur}
-          placeholder="DD/MM/AAAA (ex: 15/08/1998)"
+          placeholder={placeholder}
           aria-label={label}
           className={`w-full h-10 sm:h-11 pl-3.5 pr-11 bg-[var(--canvas-card)] border rounded-xl font-mono text-sm sm:text-base font-bold text-[var(--ink-primary)] placeholder:text-xs sm:placeholder:text-[13px] placeholder:font-normal placeholder:tracking-normal placeholder:text-[var(--ink-mute)]/60 focus:outline-none focus:ring-2 transition ${
             inputError
